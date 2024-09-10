@@ -1,4 +1,4 @@
-class CellLifeSimulation extends HTMLElement {  
+class CellLifeSimulation extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -490,7 +490,7 @@ margin: 0.2rem 0rem !important;
     bottom: 30px;
     right: 485px;
     width: 23vw;
-    max-height: 160px;
+    max-height: 150px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
@@ -523,6 +523,120 @@ margin: 0.2rem 0rem !important;
     padding: 8px;
     margin: 5px 0;
 }
+
+.detailed-dashboard .action-buttons {
+    display: flex;
+    justify-content: space-between;
+   
+    gap: 10px;
+  }
+
+  .detailed-dashboard .action-button {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 10px;
+    background-color: #2b6bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .detailed-dashboard .action-button:hover {
+    background-color: #4080ff;
+  }
+
+ 
+
+
+  .dna-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 100, 255, 0.1) 0px 10px,
+      transparent 10px 20px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 0, 100, 0.1) 0px 10px,
+      transparent 10px 20px
+    );
+    animation: dna-animation 10s linear infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes dna-animation {
+    0% {
+      background-position: 0 0, 0 0;
+    }
+    100% {
+      background-position: 40px 40px, 40px 40px;
+    }
+  }
+
+  .genetics-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .genetics-content h3 {
+    text-align: center;
+    margin-bottom:10px;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+  }
+
+  .traits-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trait {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .trait-label {
+    font-weight: bold;
+     color: #fff;
+    font-size: 10px;
+  }
+
+  .trait-value {
+    font-family: monospace;
+    color:#2b6bff;
+  }
+
+  .trait-header {
+  margin-bottom: 0;
+  }
+
+  #close-genetics {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  #close-genetics:hover {
+    background-color: #fff;
+  }
 
 .navigation-controls {
   display: flex;
@@ -648,11 +762,11 @@ margin: 0.2rem 0rem !important;
   background-color: #ff4444;
   color: white;
   border: none;
-  padding: 2px 8px;
+  padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 10px;
-  margin-top: 5px;
+  
   width: auto;
   height: auto;
 }
@@ -984,6 +1098,8 @@ margin: 0.2rem 0rem !important;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
+
+
 @keyframes fadeInOut {
 
     0%,
@@ -1106,25 +1222,42 @@ margin: 0.2rem 0rem !important;
     this.graphCtx = this.graphCanvas.getContext("2d");
 
     this.dashboard = this.shadowRoot.getElementById("dashboard");
-    this.toggleDashboardButton = this.shadowRoot.getElementById("toggle-dashboard");
+    this.toggleDashboardButton =
+      this.shadowRoot.getElementById("toggle-dashboard");
 
     this.toggleHybridButton = this.shadowRoot.getElementById("toggle-hybrid");
     this.hybridMode = false;
-    this.hybridCountContainer = this.shadowRoot.getElementById("hybrid-count-container");
+    this.hybridCountContainer = this.shadowRoot.getElementById(
+      "hybrid-count-container"
+    );
 
-    this.toggleAdaptiveButton = this.shadowRoot.getElementById("toggle-adaptive");
+    this.toggleAdaptiveButton =
+      this.shadowRoot.getElementById("toggle-adaptive");
     this.adaptiveMode = false;
 
-    this.preyEyeColorDashboard = this.shadowRoot.getElementById("prey-eye-color-dashboard");
-    this.predatorEyeColorDashboard = this.shadowRoot.getElementById("predator-eye-color-dashboard");
-    this.hybridEyeColorDashboard = this.shadowRoot.getElementById("hybrid-eye-color-dashboard");
+    this.preyEyeColorDashboard = this.shadowRoot.getElementById(
+      "prey-eye-color-dashboard"
+    );
+    this.predatorEyeColorDashboard = this.shadowRoot.getElementById(
+      "predator-eye-color-dashboard"
+    );
+    this.hybridEyeColorDashboard = this.shadowRoot.getElementById(
+      "hybrid-eye-color-dashboard"
+    );
 
-    this.eyeColorDashboard = this.shadowRoot.getElementById("eye-color-dashboard");
+    this.eyeColorDashboard = this.shadowRoot.getElementById(
+      "eye-color-dashboard"
+    );
     this.eyeColorStats = this.shadowRoot.getElementById("eye-color-stats");
 
-    this.fullHistoryGraphContainer = this.shadowRoot.getElementById("full-history-graph-container");
-    this.toggleFullHistoryGraphButton = this.shadowRoot.getElementById("toggle-full-history-graph");
-    this.fullHistoryGraphCanvas = this.shadowRoot.getElementById("full-history-graph");
+    this.fullHistoryGraphContainer = this.shadowRoot.getElementById(
+      "full-history-graph-container"
+    );
+    this.toggleFullHistoryGraphButton = this.shadowRoot.getElementById(
+      "toggle-full-history-graph"
+    );
+    this.fullHistoryGraphCanvas =
+      this.shadowRoot.getElementById("full-history-graph");
     this.fullHistoryGraphCtx = this.fullHistoryGraphCanvas.getContext("2d");
     this.fullPopulationData = [];
 
@@ -1132,7 +1265,7 @@ margin: 0.2rem 0rem !important;
       prey: {},
       predator: {},
       hybrid: {},
-      adaptive: {}
+      adaptive: {},
     };
     this.currentPedigreeType = null;
     this.pedigreeGraphContainer = null;
@@ -1140,13 +1273,13 @@ margin: 0.2rem 0rem !important;
     this.pedigreeGraphCtx = null;
     this.isPedigreeGraphVisible = false;
     this.lastPedigreeUpdateTime = 0;
-  this.pedigreeUpdateInterval = 250;
+    this.pedigreeUpdateInterval = 250;
 
     this.followedCell = null;
 
     // Set up large map dimensions
-    this.mapWidth = 5000;
-    this.mapHeight = 3000;
+    this.mapWidth = 6000;
+    this.mapHeight = 4000;
 
     // Set up viewport dimensions
     this.viewportWidth = window.innerWidth;
@@ -1160,21 +1293,21 @@ margin: 0.2rem 0rem !important;
 
     this.cells = [];
     this.food = [];
-    this.maxPopulation = 450;
+    this.maxPopulation = 350;
     this.preyPopulationThreshold = 30;
-    this.maxPreyPopulation = 200;
+    this.maxPreyPopulation = 250;
     this.maxHybridPopulation = 1000;
 
     // FOOD
     this.foodMode = "feedingAreas";
-    this.baseFoodCount = 1250;
+    this.baseFoodCount = 1750;
     this.foodDensity = 0.05;
     this.foodRegenerationRate = 5;
     this.lastFoodRegenerationTime = Date.now();
 
     // Feeding area properties
     this.feedingAreas = [];
-    this.feedingAreaCount = 355;
+    this.feedingAreaCount = 455;
     this.feedingAreaRadius = 100;
     this.feedingAreaRelocateInterval = 50;
     this.foodPerArea = 10;
@@ -1210,9 +1343,6 @@ margin: 0.2rem 0rem !important;
 
     this.initializeToggleButtons();
 
-    
-    
-
     this.gameMode = null;
     this.isRunning = true;
     this.lastTimestamp = 0;
@@ -1237,10 +1367,10 @@ margin: 0.2rem 0rem !important;
     };
 
     // Set up minimap
-    this.minimapCanvas = document.createElement('canvas');
+    this.minimapCanvas = document.createElement("canvas");
     this.minimapCanvas.width = 150;
     this.minimapCanvas.height = 100;
-    this.minimapCtx = this.minimapCanvas.getContext('2d');
+    this.minimapCtx = this.minimapCanvas.getContext("2d");
 
     // Add minimap styles
     const minimapStyles = `
@@ -1255,13 +1385,13 @@ margin: 0.2rem 0rem !important;
         border-radius: 2px;
       }
     `;
-    const styleElement = document.createElement('style');
+    const styleElement = document.createElement("style");
     styleElement.textContent = minimapStyles;
     this.shadowRoot.appendChild(styleElement);
 
     // Add minimap to shadow DOM
-    const minimapContainer = document.createElement('div');
-    minimapContainer.id = 'minimap';
+    const minimapContainer = document.createElement("div");
+    minimapContainer.id = "minimap";
     minimapContainer.appendChild(this.minimapCanvas);
     this.shadowRoot.appendChild(minimapContainer);
 
@@ -1278,7 +1408,7 @@ margin: 0.2rem 0rem !important;
     requestAnimationFrame(this.animate);
 
     // Modify existing event listeners
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       this.viewportWidth = window.innerWidth;
       this.viewportHeight = window.innerHeight;
       this.canvas.width = this.viewportWidth;
@@ -1287,188 +1417,229 @@ margin: 0.2rem 0rem !important;
   }
 
   //UPDATE
- update(currentTime) {
-  if (!this.isRunning) return;
+  update(currentTime) {
+    if (!this.isRunning) return;
 
-  const deltaTime = (currentTime - this.lastTimestamp) / 1000;
-  this.lastTimestamp = currentTime;
-  const cappedDeltaTime = Math.min(deltaTime, 0.1);
+    const deltaTime = (currentTime - this.lastTimestamp) / 1000;
+    this.lastTimestamp = currentTime;
+    const cappedDeltaTime = Math.min(deltaTime, 0.1);
 
-  this.frameCount++;
-  if (currentTime - this.lastFrameTime >= 1000) {
-    this.fps = this.frameCount;
-    this.frameCount = 0;
-    this.lastFrameTime = currentTime;
-  }
-
-  this.updateCamera();
-  this.ctx.clearRect(0, 0, this.mapWidth, this.mapHeight);
-  this.updateFood(cappedDeltaTime);
-
-  this.ctx.save();
-  this.ctx.translate(-this.cameraX, -this.cameraY);
-
-  this.particleSystem.update(cappedDeltaTime);
-  this.particleSystem.draw(this.ctx);
-
-  let newCells = [];
-  let cellsToRemove = [];
-
-  const quadtree = new Quadtree(0, 0, this.mapWidth, this.mapHeight);
-  this.cells.forEach((cell) => quadtree.insert(cell));
-
-  for (let i = this.cells.length - 1; i >= 0; i--) {
-    const cell = this.cells[i];
-    if (!cell || typeof cell.x === 'undefined' || typeof cell.y === 'undefined' || !isFinite(cell.x) || !isFinite(cell.y)) {
-      cellsToRemove.push(cell);
-      continue;
+    this.frameCount++;
+    if (currentTime - this.lastFrameTime >= 1000) {
+      this.fps = this.frameCount;
+      this.frameCount = 0;
+      this.lastFrameTime = currentTime;
     }
 
-    const nearbyObjects = quadtree.retrieve({
-      x: cell.x - 50,
-      y: cell.y - 50,
-      width: 100,
-      height: 100,
-    });
+    this.updateCamera();
+    this.ctx.clearRect(0, 0, this.mapWidth, this.mapHeight);
+    this.updateFood(cappedDeltaTime);
 
-    const nearestFood = this.findNearest(cell, this.food);
-    const nearestCell = this.findNearest(
-      cell,
-      nearbyObjects.filter((c) => c !== cell && !cellsToRemove.includes(c))
-    );
+    this.ctx.save();
+    this.ctx.translate(-this.cameraX, -this.cameraY);
 
-    let updateResult;
-    if (this.gameMode === "user-controlled" && cell === this.userControlledCell) {
-      updateResult = this.updateUserControlledCell(cell, cappedDeltaTime, nearbyObjects);
-    } else {
-      updateResult = cell.update(nearestFood, nearestCell, this.mapWidth, this.mapHeight, nearbyObjects, cappedDeltaTime);
-    }
+    this.particleSystem.update(cappedDeltaTime);
+    this.particleSystem.draw(this.ctx);
 
-    if (updateResult === 'remove') {
-      cellsToRemove.push(cell);
-      continue;
-    }
+    let newCells = [];
+    let cellsToRemove = [];
 
-    if (!cell.isUserControlled) {
-      if ((cell.isPrey || cell instanceof AdaptiveCell) && nearestFood) {
-        if (cell.collidesWith(nearestFood)) {
-          const energyGained = cell.eat(nearestFood);
-          this.removeFood(nearestFood);
-          
-          if (cell.energy >= cell.attributes.reproductionThreshold) {
-            const offspring = cell.reproduce();
-            if (Array.isArray(offspring)) {
-              newCells.push(...offspring);
-            }
-          }
-        }
-      } else if (!cell.isPrey && nearestCell && cell.collidesWith(nearestCell) &&
-                 (nearestCell.isPrey || nearestCell instanceof HybridCell || nearestCell instanceof AdaptiveCell) &&
-                 (!cell.digesting || cell.digesting === 0)) {
-        if (!nearestCell.defend(cell)) {
-          const energyGained = cell.eat(nearestCell);
-          cellsToRemove.push(nearestCell);
-          
-          if (cell.energy >= cell.attributes.reproductionThreshold) {
-            const offspring = cell.reproduce();
-            if (Array.isArray(offspring)) {
-              newCells.push(...offspring);
-            }
-          }
-        }
-      }
-    }
+    const quadtree = new Quadtree(0, 0, this.mapWidth, this.mapHeight);
+    this.cells.forEach((cell) => quadtree.insert(cell));
 
-    if ((cell instanceof HybridCell || cell instanceof AdaptiveCell) && nearestCell) {
-      if (cell.collidesWith(nearestCell) && 
-          ((cell instanceof HybridCell && nearestCell instanceof AdaptiveCell) ||
-           (cell instanceof AdaptiveCell && nearestCell instanceof HybridCell))) {
-        const battleResult = cell.battle(nearestCell);
-        if (battleResult !== null) {
-          if (battleResult) {
-            this.createBattleParticles(nearestCell.x, nearestCell.y, nearestCell.color);
-            cellsToRemove.push(nearestCell);
-          } else {
-            this.createBattleParticles(cell.x, cell.y, cell.color);
-            cellsToRemove.push(cell);
-            continue;
-          }
-        }
-      }
-    }
+    for (let i = this.cells.length - 1; i >= 0; i--) {
+      const cell = this.cells[i];
+      const nearbyObjects = quadtree.retrieve({
+        x: cell.x - 100,
+        y: cell.y - 100,
+        width: 200,
+        height: 200,
+      });
 
-    if (!cell.isPrey) {
-      cell.huntInPack(nearbyObjects.filter(c => !cellsToRemove.includes(c)));
-    }
+      const nearestFood = this.findNearest(cell, this.food);
+      const nearestCell = this.findNearest(
+        cell,
+        nearbyObjects.filter((c) => c !== cell && !cellsToRemove.includes(c))
+      );
 
-    if (this.isInViewport(cell)) {
-      cell.draw(this.ctx);
-    }
-  }
-
-  for (const newCell of newCells) {
-    if (this.cells.length < this.maxPopulation) {
-      if (newCell instanceof HybridCell &&
-          this.cells.filter((c) => c instanceof HybridCell).length < this.maxHybridPopulation) {
-        this.cells.push(newCell);
-      } else if (newCell.isPrey &&
-                 this.cells.filter((c) => c.isPrey && !(c instanceof HybridCell)).length < this.maxPreyPopulation) {
-        this.cells.push(newCell);
-      } else if (!newCell.isPrey) {
-        this.cells.push(newCell);
-      }
-    }
-  }
-
-  this.ctx.restore();
-
-  if (this.frameCount % 10 === 0) {
-    this.updateGraph();
-    this.updateEyeColorStats();
-    this.updateDashboard();
-  }
-
-  this.updateUserDashboard();
-
-  if (this.checkEndgame()) {
-    this.isRunning = false;
-
-    return;
-  }
-
-  if (this.showFPS) {
-    this.fpsCounter.textContent = `FPS: ${this.fps}`;
-  }
-
-  if (this.gameMode === "user-controlled" && this.userControlledCell) {
-    this.focusCameraOnCell(this.userControlledCell);
-  } else if (this.gameMode === "simulation-only" && this.followedCell && this.cells.includes(this.followedCell)) {
-    this.focusCameraOnCell(this.followedCell);
-  } else if (this.gameMode === "simulation-only" && this.followedCell) {
-    const dashboard = this.shadowRoot.querySelector('.detailed-dashboard:not(.hidden)');
-    if (dashboard) {
-      const cellType = dashboard.id.split('-').pop();
-      const eyeColor = this.followedCell.eyeColor;
-      const cells = this.cells.filter(c => c.eyeColor === eyeColor && this.getCellType(c) === cellType);
-      if (cells.length > 0) {
-        this.updateDetailedDashboard(cells, eyeColor, cellType);
+      let updateResult;
+      if (
+        this.gameMode === "user-controlled" &&
+        cell === this.userControlledCell
+      ) {
+        updateResult = this.updateUserControlledCell(
+          cell,
+          cappedDeltaTime,
+          nearbyObjects
+        );
       } else {
-        dashboard.classList.add('hidden');
+        updateResult = cell.update(
+          nearestFood,
+          nearestCell,
+          this.mapWidth,
+          this.mapHeight,
+          nearbyObjects,
+          cappedDeltaTime
+        );
+      }
+
+      if (updateResult === "remove") {
+        cellsToRemove.push(cell);
+        continue;
+      }
+
+      if (!cell.isUserControlled) {
+        if ((cell.isPrey || cell instanceof AdaptiveCell) && nearestFood) {
+          if (cell.collidesWith(nearestFood)) {
+            const energyGained = cell.eat(nearestFood);
+            this.removeFood(nearestFood);
+
+            if (cell.energy >= cell.attributes.reproductionThreshold) {
+              const offspring = cell.reproduce();
+              if (Array.isArray(offspring)) {
+                newCells.push(...offspring);
+              }
+            }
+          }
+        } else if (
+          !cell.isPrey &&
+          nearestCell &&
+          cell.collidesWith(nearestCell) &&
+          (nearestCell.isPrey ||
+            nearestCell instanceof HybridCell ||
+            nearestCell instanceof AdaptiveCell)
+        ) {
+          if (!nearestCell.defend(cell)) {
+            const energyGained = cell.eat(nearestCell);
+            cellsToRemove.push(nearestCell);
+
+            if (cell.energy >= cell.attributes.reproductionThreshold) {
+              const offspring = cell.reproduce();
+              if (Array.isArray(offspring)) {
+                newCells.push(...offspring);
+              }
+            }
+          }
+        }
+      }
+
+      if (
+        (cell instanceof HybridCell || cell instanceof AdaptiveCell) &&
+        nearestCell
+      ) {
+        if (
+          cell.collidesWith(nearestCell) &&
+          ((cell instanceof HybridCell &&
+            nearestCell instanceof AdaptiveCell) ||
+            (cell instanceof AdaptiveCell && nearestCell instanceof HybridCell))
+        ) {
+          const battleResult = cell.battle(nearestCell);
+          if (battleResult !== null) {
+            if (battleResult) {
+              this.createBattleParticles(
+                nearestCell.x,
+                nearestCell.y,
+                nearestCell.color
+              );
+              cellsToRemove.push(nearestCell);
+            } else {
+              this.createBattleParticles(cell.x, cell.y, cell.color);
+              cellsToRemove.push(cell);
+              continue;
+            }
+          }
+        }
+      }
+
+      if (!cell.isPrey) {
+        cell.huntInPack(
+          nearbyObjects.filter((c) => !cellsToRemove.includes(c))
+        );
+      }
+
+      if (this.isInViewport(cell)) {
+        cell.draw(this.ctx);
+      }
+    }
+
+    for (const newCell of newCells) {
+      if (this.cells.length < this.maxPopulation) {
+        if (
+          newCell instanceof HybridCell &&
+          this.cells.filter((c) => c instanceof HybridCell).length <
+            this.maxHybridPopulation
+        ) {
+          this.cells.push(newCell);
+        } else if (
+          newCell.isPrey &&
+          this.cells.filter((c) => c.isPrey && !(c instanceof HybridCell))
+            .length < this.maxPreyPopulation
+        ) {
+          this.cells.push(newCell);
+        } else if (!newCell.isPrey) {
+          this.cells.push(newCell);
+        }
+      }
+    }
+
+    this.ctx.restore();
+
+    if (this.frameCount % 10 === 0) {
+      this.updateGraph();
+      this.updateEyeColorStats();
+      this.updateDashboard();
+    }
+
+    this.updateUserDashboard();
+
+    if (this.checkEndgame()) {
+      this.isRunning = false;
+      return;
+    }
+
+    if (this.showFPS) {
+      this.fpsCounter.textContent = `FPS: ${this.fps}`;
+    }
+
+    if (this.gameMode === "user-controlled" && this.userControlledCell) {
+      this.focusCameraOnCell(this.userControlledCell);
+    } else if (
+      this.gameMode === "simulation-only" &&
+      this.followedCell &&
+      this.cells.includes(this.followedCell)
+    ) {
+      this.focusCameraOnCell(this.followedCell);
+    } else if (this.gameMode === "simulation-only" && this.followedCell) {
+      const dashboard = this.shadowRoot.querySelector(
+        ".detailed-dashboard:not(.hidden)"
+      );
+      if (dashboard) {
+        const cellType = dashboard.id.split("-").pop();
+        const eyeColor = this.followedCell.eyeColor;
+        const cells = this.cells.filter(
+          (c) => c.eyeColor === eyeColor && this.getCellType(c) === cellType
+        );
+        if (cells.length > 0) {
+          this.followedCell = cells[0];
+          this.focusCameraOnCell(this.followedCell);
+          this.updateDetailedDashboard(cells, eyeColor, cellType);
+        } else {
+          dashboard.classList.add("hidden");
+          this.followedCell = null;
+        }
+      } else {
         this.followedCell = null;
       }
-    } else {
-      this.followedCell = null;
+    }
+
+    cellsToRemove.forEach((cell) => this.removeCell(cell));
+
+    this.updateMinimap();
+
+    if (this.isRunning) {
+      this.animationFrame = requestAnimationFrame(this.update.bind(this));
     }
   }
-
-  cellsToRemove.forEach(cell => this.removeCell(cell));
-
-  this.updateMinimap();
-
-  if (this.isRunning) {
-    this.animationFrame = requestAnimationFrame(this.update.bind(this));
-  }
-}
 
   //EVENT LISTENERS
   setupEventListeners() {
@@ -1476,11 +1647,11 @@ margin: 0.2rem 0rem !important;
     if (applyChangesButton) {
       applyChangesButton.addEventListener("click", () => this.applyChanges());
     }
-  
+
     if (this.toggleGuiButton) {
       this.toggleGuiButton.addEventListener("click", () => this.toggleGUI());
     }
-  
+
     const toggleButtons = [
       { id: "toggle-dashboard", method: this.toggleDashboard },
       { id: "toggle-graph", method: this.toggleGraph },
@@ -1490,7 +1661,7 @@ margin: 0.2rem 0rem !important;
       { id: "toggle-flocking", method: this.toggleFlocking },
       { id: "toggle-food-mode", method: this.toggleFoodMode },
     ];
-  
+
     toggleButtons.forEach(({ id, method }) => {
       const button = this.shadowRoot.getElementById(id);
       if (button) {
@@ -1499,26 +1670,35 @@ margin: 0.2rem 0rem !important;
         console.warn(`Button with id "${id}" not found`);
       }
     });
-  
+
     if (this.restartButton) {
-      this.restartButton.addEventListener("click", () => this.restartSimulation(this.gameMode));
+      this.restartButton.addEventListener("click", () =>
+        this.restartSimulation(this.gameMode)
+      );
     }
-  
+
     if (this.fullscreenButton) {
-      this.fullscreenButton.addEventListener("click", () => this.toggleFullscreen());
+      this.fullscreenButton.addEventListener("click", () =>
+        this.toggleFullscreen()
+      );
     }
-  
+
     if (this.runtimeButton) {
-      this.runtimeButton.addEventListener("click", () => this.toggleRuntimePopup());
+      this.runtimeButton.addEventListener("click", () =>
+        this.toggleRuntimePopup()
+      );
     }
-  
+
     document.addEventListener("fullscreenchange", () => {
       if (!document.fullscreenElement && this.fullscreenButton) {
         this.fullscreenButton.textContent = "⛶";
       }
     });
-    document.addEventListener("webkitfullscreenchange", this.handleFullscreenChange.bind(this));
-  
+    document.addEventListener(
+      "webkitfullscreenchange",
+      this.handleFullscreenChange.bind(this)
+    );
+
     const eyeIcons = this.shadowRoot.querySelectorAll(".eye-icon");
     eyeIcons.forEach((icon) => {
       icon.addEventListener("click", (event) => {
@@ -1526,28 +1706,28 @@ margin: 0.2rem 0rem !important;
         this.toggleEyeColorDashboard(type);
       });
     });
-  
+
     const inputs = this.shadowRoot.querySelectorAll("input");
     inputs.forEach((input) => {
       input.addEventListener("input", (e) => {
         this.params[e.target.id] = parseInt(e.target.value, 10);
       });
     });
-  
+
     // Add event listener for the debug toggle
-    const debugToggle = this.shadowRoot.getElementById('toggle-debug');
+    const debugToggle = this.shadowRoot.getElementById("toggle-debug");
     if (debugToggle) {
-      debugToggle.addEventListener('click', () => this.toggleDebugMenu());
+      debugToggle.addEventListener("click", () => this.toggleDebugMenu());
     }
-  
+
     // Add event listener for the settings toggle (functionality to be implemented later)
-    const settingsToggle = this.shadowRoot.getElementById('toggle-settings');
+    const settingsToggle = this.shadowRoot.getElementById("toggle-settings");
     if (settingsToggle) {
-      settingsToggle.addEventListener('click', () => {
-        console.log('Settings functionality not implemented yet');
+      settingsToggle.addEventListener("click", () => {
+        console.log("Settings functionality not implemented yet");
       });
     }
-  
+
     window.addEventListener("resize", () => {
       this.mapWidth = window.innerWidth;
       this.mapHeight = window.innerHeight;
@@ -1559,14 +1739,16 @@ margin: 0.2rem 0rem !important;
   //ANIMATION
   animate(currentTime) {
     if (!this.isRunning) return;
-  
+
     // Calculate delta time
-    const deltaTime = this.lastTimestamp ? (currentTime - this.lastTimestamp) / 1000 : 0;
+    const deltaTime = this.lastTimestamp
+      ? (currentTime - this.lastTimestamp) / 1000
+      : 0;
     this.lastTimestamp = currentTime;
-  
+
     // Limit delta time to prevent huge jumps
     const cappedDeltaTime = Math.min(deltaTime, 0.1);
-  
+
     // Calculate FPS
     this.frameCount++;
     if (currentTime - this.lastFrameTime >= 1000) {
@@ -1574,19 +1756,19 @@ margin: 0.2rem 0rem !important;
       this.frameCount = 0;
       this.lastFrameTime = currentTime;
     }
-  
+
     this.updateCamera();
-  
+
     // Clear the entire canvas, not just the viewport
     this.ctx.clearRect(0, 0, this.mapWidth, this.mapHeight);
-  
+
     // Update and draw food
     this.updateFood(cappedDeltaTime);
-  
+
     // Save the canvas state and translate it
     this.ctx.save();
     this.ctx.translate(-this.cameraX, -this.cameraY);
-  
+
     // Draw food
     this.food.forEach((food) => {
       if (this.isInViewport(food)) {
@@ -1594,51 +1776,62 @@ margin: 0.2rem 0rem !important;
         food.draw(this.ctx);
       }
     });
-  
+
     // Draw particles
     this.particleSystem.update(cappedDeltaTime);
     this.particleSystem.draw(this.ctx);
-  
+
     let newCells = [];
-    
-  
+
     // Use quadtree for efficient spatial partitioning
     const quadtree = new Quadtree(0, 0, this.mapWidth, this.mapHeight);
     this.cells.forEach((cell) => quadtree.insert(cell));
-  
+
     // Adjust food supply every 60 frames
-    if (this.frameCount % 60 === 0) {
+    if (this.frameCount % 30 === 0) {
       this.adjustFoodSupply();
     }
 
-    if (currentTime - this.lastPedigreeUpdateTime > this.pedigreeUpdateInterval) {
+    if (
+      currentTime - this.lastPedigreeUpdateTime >
+      this.pedigreeUpdateInterval
+    ) {
       if (this.isPedigreeGraphVisible && this.currentPedigreeType) {
         this.updatePedigreeGraph(this.currentPedigreeType);
       }
       this.lastPedigreeUpdateTime = currentTime;
     }
-  
+
     // Update and draw cells
     for (let i = 0; i < this.cells.length; i++) {
       const cell = this.cells[i];
-      if (!cell || typeof cell.x === 'undefined' || typeof cell.y === 'undefined' || !isFinite(cell.x) || !isFinite(cell.y)) {
+      if (
+        !cell ||
+        typeof cell.x === "undefined" ||
+        typeof cell.y === "undefined" ||
+        !isFinite(cell.x) ||
+        !isFinite(cell.y)
+      ) {
         continue; // Skip invalid cells
       }
-  
+
       const nearbyObjects = quadtree.retrieve({
         x: cell.x - 50,
         y: cell.y - 50,
         width: 100,
         height: 100,
       });
-      
+
       const nearestFood = this.findNearest(cell, this.food);
       const nearestCell = this.findNearest(
         cell,
         nearbyObjects.filter((c) => c !== cell)
       );
-  
-      if (this.gameMode === "user-controlled" && cell === this.userControlledCell) {
+
+      if (
+        this.gameMode === "user-controlled" &&
+        cell === this.userControlledCell
+      ) {
         this.updateUserControlledCell(cell, cappedDeltaTime, nearbyObjects);
       } else {
         cell.update(
@@ -1650,14 +1843,14 @@ margin: 0.2rem 0rem !important;
           cappedDeltaTime
         );
       }
-  
+
       // Handle eating
       if (!cell.isUserControlled) {
         if ((cell.isPrey || cell instanceof AdaptiveCell) && nearestFood) {
           if (cell.collidesWith(nearestFood)) {
             const energyGained = cell.eat(nearestFood);
             this.removeFood(nearestFood);
-            
+
             // Check for reproduction after eating
             if (cell.energy >= cell.attributes.reproductionThreshold) {
               const offspring = cell.reproduce();
@@ -1666,70 +1859,80 @@ margin: 0.2rem 0rem !important;
               }
             }
           }
-        } else if (!cell.isPrey && nearestCell && cell.collidesWith(nearestCell) &&
-                   (nearestCell.isPrey || nearestCell instanceof HybridCell || nearestCell instanceof AdaptiveCell) &&
-                   (!cell.digesting || cell.digesting === 0)) {
-                    if (!nearestCell.defend(cell)) {
-                      const energyGained = cell.eat(nearestCell);
-                      this.removeCell(nearestCell);
-                      
-                      // Check for reproduction after eating
-                      if (cell.energy >= cell.attributes.reproductionThreshold) {
-                        const offspring = cell.reproduce();
-                        if (Array.isArray(offspring)) {
-                          newCells.push(...offspring);
-                        }
-                      }
-                    }
+        } else if (
+          !cell.isPrey &&
+          nearestCell &&
+          cell.collidesWith(nearestCell) &&
+          (nearestCell.isPrey ||
+            nearestCell instanceof HybridCell ||
+            nearestCell instanceof AdaptiveCell)
+        ) {
+          if (!nearestCell.defend(cell)) {
+            const energyGained = cell.eat(nearestCell);
+            this.removeCell(nearestCell);
+
+            // Check for reproduction after eating
+            if (cell.energy >= cell.attributes.reproductionThreshold) {
+              const offspring = cell.reproduce();
+              if (Array.isArray(offspring)) {
+                newCells.push(...offspring);
+              }
+            }
+          }
         }
       }
-  
+
       // Draw the cell if it's in the viewport
       if (this.isInViewport(cell)) {
         cell.draw(this.ctx);
       }
     }
-  
-   
+
     // Add new cells respecting population limits
     for (const newCell of newCells) {
       if (this.cells.length < this.maxPopulation) {
-        if (newCell instanceof HybridCell &&
-            this.cells.filter((c) => c instanceof HybridCell).length < this.maxHybridPopulation) {
+        if (
+          newCell instanceof HybridCell &&
+          this.cells.filter((c) => c instanceof HybridCell).length <
+            this.maxHybridPopulation
+        ) {
           this.cells.push(newCell);
-        } else if (newCell.isPrey &&
-                   this.cells.filter((c) => c.isPrey && !(c instanceof HybridCell)).length < this.maxPreyPopulation) {
+        } else if (
+          newCell.isPrey &&
+          this.cells.filter((c) => c.isPrey && !(c instanceof HybridCell))
+            .length < this.maxPreyPopulation
+        ) {
           this.cells.push(newCell);
         } else if (!newCell.isPrey) {
           this.cells.push(newCell);
         }
       }
     }
-  
+
     // Restore the canvas state
     this.ctx.restore();
-  
+
     // Update graph and dashboard less frequently
     if (this.frameCount % 10 === 0) {
       this.updateGraph();
       this.updateEyeColorStats();
       this.updateDashboard();
     }
-  
+
     // Update user dashboard
     this.updateUserDashboard();
-  
+
     // Check for win/lose conditions
     if (this.checkEndgame()) {
       this.isRunning = false;
       return;
     }
-  
+
     // Update FPS counter
     if (this.showFPS) {
       this.fpsCounter.textContent = `FPS: ${this.fps}`;
     }
-  
+
     // Update energy bar bloom effect
     if (this.energyBarBloomActive) {
       this.energyBarBloomTimer -= deltaTime;
@@ -1738,10 +1941,10 @@ margin: 0.2rem 0rem !important;
         this.energyBarBloomTimer = 0;
       }
     }
-  
+
     // Update and draw minimap
     this.updateMinimap();
-  
+
     // Schedule the next animation frame if the game is still running
     if (this.isRunning) {
       this.animationFrame = requestAnimationFrame(this.animate.bind(this));
@@ -1782,13 +1985,13 @@ margin: 0.2rem 0rem !important;
     for (let i = 0; i < this.params.predatorCount; i++) {
       const cell = new Cell(
         Math.random() * this.mapWidth,
-      Math.random() * this.mapHeight,
+        Math.random() * this.mapHeight,
         "magenta",
         false,
         predatorColors[i],
         null,
         null,
-        Math.floor(Math.random() * 5) + 4 
+        Math.floor(Math.random() * 4) + 6
       );
       cell.simulation = this;
       cell.age = 0;
@@ -1879,36 +2082,45 @@ margin: 0.2rem 0rem !important;
       }
     });
   }
-  
+
   //SIMULATION MODE
   setupNavigationControls() {
     // Add keyboard controls for simulation mode
-    window.addEventListener('keydown', (e) => {
-      if (this.gameMode !== 'simulation-only' || this.followedCell) return;
+    window.addEventListener("keydown", (e) => {
+      if (this.gameMode !== "simulation-only" || this.followedCell) return;
       const speed = 40;
       switch (e.key) {
-        case 'w':
+        case "w":
           this.cameraY = Math.max(0, this.cameraY - speed);
           break;
-        case 's':
-          this.cameraY = Math.min(this.mapHeight - this.viewportHeight, this.cameraY + speed);
+        case "s":
+          this.cameraY = Math.min(
+            this.mapHeight - this.viewportHeight,
+            this.cameraY + speed
+          );
           break;
-        case 'a':
+        case "a":
           this.cameraX = Math.max(0, this.cameraX - speed);
           break;
-        case 'd':
-          this.cameraX = Math.min(this.mapWidth - this.viewportWidth, this.cameraX + speed);
+        case "d":
+          this.cameraX = Math.min(
+            this.mapWidth - this.viewportWidth,
+            this.cameraX + speed
+          );
           break;
       }
     });
-  
+
     // Add minimap click navigation
-    this.minimapCanvas.addEventListener('click', (e) => {
+    this.minimapCanvas.addEventListener("click", (e) => {
       const rect = this.minimapCanvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      this.cameraX = (x / this.minimapCanvas.width) * this.mapWidth - this.viewportWidth / 2;
-      this.cameraY = (y / this.minimapCanvas.height) * this.mapHeight - this.viewportHeight / 2;
+      this.cameraX =
+        (x / this.minimapCanvas.width) * this.mapWidth - this.viewportWidth / 2;
+      this.cameraY =
+        (y / this.minimapCanvas.height) * this.mapHeight -
+        this.viewportHeight / 2;
       this.clampCamera();
     });
   }
@@ -1918,61 +2130,79 @@ margin: 0.2rem 0rem !important;
     const screenY = entity.y - this.cameraY;
     const radius = entity.radius || 0;
 
-    return (screenX + radius + buffer >= 0 &&
-            screenX - radius - buffer <= this.viewportWidth &&
-            screenY + radius + buffer >= 0 &&
-            screenY - radius - buffer <= this.viewportHeight);
+    return (
+      screenX + radius + buffer >= 0 &&
+      screenX - radius - buffer <= this.viewportWidth &&
+      screenY + radius + buffer >= 0 &&
+      screenY - radius - buffer <= this.viewportHeight
+    );
   }
   updateVisibleEntities() {
-    this.visibleCells = this.cells.filter(cell => this.isInViewport(cell));
-    this.visibleFood = this.food.filter(food => this.isInViewport(food));
+    this.visibleCells = this.cells.filter((cell) => this.isInViewport(cell));
+    this.visibleFood = this.food.filter((food) => this.isInViewport(food));
   }
   getCellType(cell) {
-    if (cell instanceof HybridCell) return 'hybrid';
-    if (cell instanceof AdaptiveCell) return 'adaptive';
-    return cell.isPrey ? 'prey' : 'predator';
+    if (cell instanceof HybridCell) return "hybrid";
+    if (cell instanceof AdaptiveCell) return "adaptive";
+    return cell.isPrey ? "prey" : "predator";
   }
   drawSimulation() {
     this.ctx.save();
     this.ctx.translate(-this.cameraX, -this.cameraY);
 
-    this.visibleFood.forEach(food => food.draw(this.ctx));
+    this.visibleFood.forEach((food) => food.draw(this.ctx));
     this.particleSystem.draw(this.ctx);
-    this.visibleCells.forEach(cell => cell.draw(this.ctx));
+    this.visibleCells.forEach((cell) => cell.draw(this.ctx));
 
     this.ctx.restore();
   }
   updateMinimap() {
-    const scale = Math.min(this.minimapCanvas.width / this.mapWidth, this.minimapCanvas.height / this.mapHeight);
-    this.minimapCtx.clearRect(0, 0, this.minimapCanvas.width, this.minimapCanvas.height);
-    
+    const scale = Math.min(
+      this.minimapCanvas.width / this.mapWidth,
+      this.minimapCanvas.height / this.mapHeight
+    );
+    this.minimapCtx.clearRect(
+      0,
+      0,
+      this.minimapCanvas.width,
+      this.minimapCanvas.height
+    );
+
     // Draw cells on minimap
-    this.cells.forEach(cell => {
+    this.cells.forEach((cell) => {
       const x = (cell.x / this.mapWidth) * this.minimapCanvas.width;
       const y = (cell.y / this.mapHeight) * this.minimapCanvas.height;
       this.minimapCtx.fillStyle = cell.color;
       this.minimapCtx.fillRect(x, y, 2, 2);
     });
-  
+
     // Draw food on minimap
-    this.minimapCtx.fillStyle = 'rgba(0, 255, 0, 0.5)';
-    this.food.forEach(food => {
+    this.minimapCtx.fillStyle = "rgba(0, 255, 0, 0.5)";
+    this.food.forEach((food) => {
       const x = (food.x / this.mapWidth) * this.minimapCanvas.width;
       const y = (food.y / this.mapHeight) * this.minimapCanvas.height;
       this.minimapCtx.fillRect(x, y, 1, 1);
     });
-  
+
     // Draw viewport rectangle on minimap
     const vpX = (this.cameraX / this.mapWidth) * this.minimapCanvas.width;
     const vpY = (this.cameraY / this.mapHeight) * this.minimapCanvas.height;
-    const vpWidth = (this.viewportWidth / this.mapWidth) * this.minimapCanvas.width;
-    const vpHeight = (this.viewportHeight / this.mapHeight) * this.minimapCanvas.height;
-    this.minimapCtx.strokeStyle = 'white';
+    const vpWidth =
+      (this.viewportWidth / this.mapWidth) * this.minimapCanvas.width;
+    const vpHeight =
+      (this.viewportHeight / this.mapHeight) * this.minimapCanvas.height;
+    this.minimapCtx.strokeStyle = "white";
     this.minimapCtx.strokeRect(vpX, vpY, vpWidth, vpHeight);
   }
   clampCamera() {
-    this.cameraX = Math.max(0, Math.min(this.cameraX, this.mapWidth - this.viewportWidth));
-    this.cameraY = Math.max(0, Math.min(this.cameraY, this.mapHeight - this.viewportHeight));
+    this.cameraX = Math.max(
+      0,
+      Math.min(this.cameraX, this.mapWidth - this.viewportWidth)
+    );
+    this.cameraY = Math.max(
+      0,
+      Math.min(this.cameraY, this.mapHeight - this.viewportHeight)
+    );
   }
   updateCamera() {
     if (this.gameMode === "user-controlled" && this.userControlledCell) {
@@ -1982,12 +2212,35 @@ margin: 0.2rem 0rem !important;
     } else if (this.gameMode === "simulation-only") {
       this.focusCameraOnCell(this.followedCell);
     }
-    
+
     // Ensure camera stays within map bounds
-    this.cameraX = Math.max(0, Math.min(this.cameraX, this.mapWidth - this.viewportWidth));
-    this.cameraY = Math.max(0, Math.min(this.cameraY, this.mapHeight - this.viewportHeight));
+    this.cameraX = Math.max(
+      0,
+      Math.min(this.cameraX, this.mapWidth - this.viewportWidth)
+    );
+    this.cameraY = Math.max(
+      0,
+      Math.min(this.cameraY, this.mapHeight - this.viewportHeight)
+    );
 
     this.updateVisibleEntities();
+  }
+  findNextCellOfSameType(currentCell) {
+    if (!currentCell) return null;
+
+    const cellType = this.getCellType(currentCell);
+    const eyeColor = currentCell.eyeColor;
+
+    const cellsOfSameType = this.cells.filter(
+      (cell) =>
+        this.getCellType(cell) === cellType && cell.eyeColor === eyeColor
+    );
+
+    const currentIndex = cellsOfSameType.indexOf(currentCell);
+    if (currentIndex === -1 || cellsOfSameType.length === 1) return null;
+
+    const nextIndex = (currentIndex + 1) % cellsOfSameType.length;
+    return cellsOfSameType[nextIndex];
   }
 
   //GAME MODE
@@ -2000,7 +2253,7 @@ margin: 0.2rem 0rem !important;
     this.setupEventListeners();
   }
   createEatingParticles(x, y) {
-    const particleCount = 15;
+    const particleCount = 10;
     const particleColor = "rgba(255, 0, 0, 0.7)";
     this.particleSystem.addParticles(
       x,
@@ -2015,7 +2268,7 @@ margin: 0.2rem 0rem !important;
       x,
       y,
       "rgba(255, 255, 0, 0.5)",
-      10,
+      5,
       "energyBurst"
     );
   }
@@ -2043,38 +2296,46 @@ margin: 0.2rem 0rem !important;
     this.shadowRoot.appendChild(this.userDashboard);
   }
   updateUserDashboard() {
-    if (!this.userDashboard || this.gameMode !== "user-controlled" || !this.userControlledCell) {
+    if (
+      !this.userDashboard ||
+      this.gameMode !== "user-controlled" ||
+      !this.userControlledCell
+    ) {
       if (this.userDashboard) this.userDashboard.style.display = "none";
       return;
     }
-  
+
     const cell = this.userControlledCell;
     this.userDashboard.style.display = "block";
     const energyPercentage = (cell.energy / Cell.MAX_ENERGY) * 100;
     const levelProgress = (cell.preyEaten / cell.preyEatenForNextLevel) * 100;
-  
+
     const bloomEffect = this.energyBarBloomActive
       ? `box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; transition: all 0.3s ease-in-out;`
       : "";
-  
-    const powerupIcons = cell.powerups.map(powerup => {
-      const iconMap = {
-        'Virus Pull Aura': '🦠',
-        'Quantum Tunneling': '🌀',
-      'Viral Replicator': '🦠',
-      'Temporal Rift': '⏳',
-      'Biome Catalyst': '🌿',
-      'Energy Efficiency': '🔋',
-      'Speed Boost': '⚡',
-      };
-      return `
+
+    const powerupIcons = cell.powerups
+      .map((powerup) => {
+        const iconMap = {
+          "Virus Pull Aura": "🦠",
+          "Quantum Tunneling": "🌀",
+          "Viral Replicator": "🦠",
+          "Temporal Rift": "⏳",
+          "Biome Catalyst": "🌿",
+          "Energy Efficiency": "🔋",
+          "Speed Boost": "⚡",
+        };
+        return `
         <div style="position: relative; display: inline-block; margin-right: 5px;">
-          <span style="font-size: 20px;">${iconMap[powerup.name] || '🔮'}</span>
-          <span style="position: absolute; top: -5px; right: -5px; background-color: #ffd700; color: black; border-radius: 50%; padding: 2px 5px; font-size: 10px;">${powerup.level}</span>
+          <span style="font-size: 20px;">${iconMap[powerup.name] || "🔮"}</span>
+          <span style="position: absolute; top: -5px; right: -5px; background-color: #ffd700; color: black; border-radius: 50%; padding: 2px 5px; font-size: 10px;">${
+            powerup.level
+          }</span>
         </div>
       `;
-    }).join('');
-  
+      })
+      .join("");
+
     this.userDashboard.innerHTML = `
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
         <div style="width: 30px; height: 30px; border-radius: 50%; background-color: rgba(0, 100, 255, 0.3); display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; margin-right: 10px;">
@@ -2095,8 +2356,14 @@ margin: 0.2rem 0rem !important;
         <span>Age: ${Math.floor(cell.age)}</span>
         <div style="display: flex; align-items: center;">
           <span style="margin-right: 15px;">Eye:</span>
-          <div style="width: 12px; height: 12px; border-radius: 50%; background-color: ${cell.eyeColor}; margin-right: 8px;"></div>
-          <span>S: ${cell.geneticTraits.speedModifier.toFixed(2)} E: ${cell.geneticTraits.energyEfficiency.toFixed(2)} R: ${cell.geneticTraits.reproductionBonus.toFixed(2)}</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background-color: ${
+            cell.eyeColor
+          }; margin-right: 8px;"></div>
+          <span>S: ${cell.geneticTraits.speedModifier.toFixed(
+            2
+          )} E: ${cell.geneticTraits.energyEfficiency.toFixed(
+      2
+    )} R: ${cell.geneticTraits.reproductionBonus.toFixed(2)}</span>
         </div>
       </div>
       
@@ -2124,13 +2391,12 @@ margin: 0.2rem 0rem !important;
     }
   }
   updateUserControlledCell(cell, deltaTime, neighbors) {
-    
     const speed = cell.attributes.maxSpeed * 145;
     const diagonalSpeed = speed / Math.sqrt(2);
-  
+
     let dx = 0;
     let dy = 0;
-  
+
     if (this.userInput.up && this.userInput.left) {
       dx = -diagonalSpeed;
       dy = -diagonalSpeed;
@@ -2149,26 +2415,26 @@ margin: 0.2rem 0rem !important;
       if (this.userInput.left) dx -= speed;
       if (this.userInput.right) dx += speed;
     }
-  
+
     // Apply smooth acceleration and deceleration
     const acceleration = 0.2;
     cell.vx += (dx - cell.vx) * acceleration;
     cell.vy += (dy - cell.vy) * acceleration;
-  
+
     // Apply the movement
     cell.x += cell.vx * deltaTime;
     cell.y += cell.vy * deltaTime;
-  
+
     // Wrap around screen edges
     cell.x = (cell.x + this.mapWidth) % this.mapWidth;
     cell.y = (cell.y + this.mapHeight) % this.mapHeight;
     this.focusCameraOnCell(cell);
-  
+
     // Check for collisions with other cells
     const nearbyCells = neighbors.filter(
       (otherCell) => otherCell !== cell && this.checkCollision(cell, otherCell)
     );
-  
+
     for (const otherCell of nearbyCells) {
       if (otherCell.isPrey) {
         // Eat prey
@@ -2189,31 +2455,41 @@ margin: 0.2rem 0rem !important;
         }
       }
     }
-  
+
     // Get nearby cells for projectile collision detection
     const nearbyObjects = neighbors.filter(
       (otherCell) => otherCell !== cell && this.checkCollision(cell, otherCell)
     );
-  
-    cell.update(null, null, this.mapWidth, this.mapHeight, nearbyObjects, deltaTime);
-  
+
+    cell.update(
+      null,
+      null,
+      this.mapWidth,
+      this.mapHeight,
+      nearbyObjects,
+      deltaTime
+    );
+
     // Apply virus pull aura effect
     if (cell.virusAura) {
       const affectedCells = cell.applyVirusAura(neighbors);
       this.visualizeVirusEffect(affectedCells);
     }
-  
+
     // Spawn eggs
     cell.spawnEgg(deltaTime);
-    cell.eggs.forEach(egg => {
+    cell.eggs.forEach((egg) => {
       this.particleSystem.addEggSpawnEffect(egg.x, egg.y);
     });
-  
+
     // Shoot projectiles
-    const nearestEnemy = this.findNearest(cell, neighbors.filter(c => !c.isPrey && c !== cell));
+    const nearestEnemy = this.findNearest(
+      cell,
+      neighbors.filter((c) => !c.isPrey && c !== cell)
+    );
     cell.shootProjectile(nearestEnemy, deltaTime);
     cell.updateProjectiles(deltaTime, this.mapWidth, this.mapHeight, neighbors);
-  
+
     // Check for reproduction
     if (cell.energy >= Cell.USER_CONTROLLED_REPRODUCTION_THRESHOLD) {
       const offspring = cell.reproduce();
@@ -2222,7 +2498,7 @@ margin: 0.2rem 0rem !important;
         this.triggerEnergyBarBloom();
       }
     }
-  
+
     // Handle leveling up based on prey eaten
     const preyEatenForNextLevel = cell.level * 25;
     if (cell.preyEaten >= preyEatenForNextLevel && cell.level < 5) {
@@ -2232,18 +2508,18 @@ margin: 0.2rem 0rem !important;
         this.updateUserDashboard();
       }
     }
-  
+
     // Update energy (reduced energy drop rate for user-controlled cell)
     const baseCost = cell.attributes.movementCost * 0.7 * deltaTime; // Reduced by 30%
-    const movementCost = Math.hypot(cell.vx, cell.vy) / cell.attributes.maxSpeed;
+    const movementCost =
+      Math.hypot(cell.vx, cell.vy) / cell.attributes.maxSpeed;
     const energyConsumption = baseCost * (1 + movementCost);
-      cell.energy -= energyConsumption;
+    cell.energy -= energyConsumption;
 
-      if (cell.energy <= 0) {
-        return 'remove';
-      }
+    if (cell.energy <= 0) {
+      return "remove";
+    }
 
-  
     // Check for level up
     if (cell.preyEaten >= cell.level * 5 && cell.level < 5) {
       cell.level++;
@@ -2251,14 +2527,14 @@ margin: 0.2rem 0rem !important;
       this.showLevelUpPopup(cell);
       return; // Exit the method early as we've paused the game
     }
-  
+
     // Update age
     cell.age += deltaTime;
     this.updateUserDashboard();
   }
   showLevelUpPopup(cell) {
-    const popup = document.createElement('div');
-    popup.id = 'level-up-popup';
+    const popup = document.createElement("div");
+    popup.id = "level-up-popup";
     popup.style.cssText = `
       position: fixed;
       top: 50%;
@@ -2275,9 +2551,9 @@ margin: 0.2rem 0rem !important;
       border: 2px solid rgba(0, 100, 255, 0.7);
       text-align: center;
     `;
-  
+
     const availablePowerups = this.getRandomPowerups(3);
-    
+
     popup.innerHTML = `
       <h2 style="margin: 0 0 20px; color: #00BFFF; text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);">Level Up!</h2>
       <div style="font-size: 24px; margin-bottom: 20px;">
@@ -2291,7 +2567,9 @@ margin: 0.2rem 0rem !important;
       </div>
       <p style="margin-bottom: 20px;">Choose a powerup:</p>
       <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
-        ${availablePowerups.map((powerup, index) => `
+        ${availablePowerups
+          .map(
+            (powerup, index) => `
           <button id="powerup-${index}" style="
             background-color: rgba(0, 100, 255, 0.2);
             border: none;
@@ -2306,38 +2584,45 @@ margin: 0.2rem 0rem !important;
             width: 80px;
           ">
             ${this.getPowerupIcon(powerup.name)}
-            <span style="margin-top: 5px; font-size: 12px;">${powerup.name}</span>
-            <span style="font-size: 10px; margin-top: 3px;">Lvl ${(cell.powerups.find(p => p.name === powerup.name)?.level || 0) + 1}</span>
+            <span style="margin-top: 5px; font-size: 12px;">${
+              powerup.name
+            }</span>
+            <span style="font-size: 10px; margin-top: 3px;">Lvl ${
+              (cell.powerups.find((p) => p.name === powerup.name)?.level || 0) +
+              1
+            }</span>
           </button>
-        `).join('')}
+        `
+          )
+          .join("")}
       </div>
     `;
-  
+
     this.shadowRoot.appendChild(popup);
-  
+
     availablePowerups.forEach((powerup, index) => {
       const button = popup.querySelector(`#powerup-${index}`);
-      button.addEventListener('click', () => {
+      button.addEventListener("click", () => {
         cell.addPowerup(powerup);
         this.shadowRoot.removeChild(popup);
         this.resumeGame();
       });
-      button.addEventListener('mouseover', () => {
-        button.style.backgroundColor = 'rgba(0, 100, 255, 0.4)';
-        button.style.transform = 'scale(1.1)';
+      button.addEventListener("mouseover", () => {
+        button.style.backgroundColor = "rgba(0, 100, 255, 0.4)";
+        button.style.transform = "scale(1.1)";
       });
-      button.addEventListener('mouseout', () => {
-        button.style.backgroundColor = 'rgba(0, 100, 255, 0.2)';
-        button.style.transform = 'scale(1)';
+      button.addEventListener("mouseout", () => {
+        button.style.backgroundColor = "rgba(0, 100, 255, 0.2)";
+        button.style.transform = "scale(1)";
       });
     });
-  
+
     this.pauseGame();
   }
 
   showPowerupDescription(powerup, button) {
-    const descriptionBox = document.createElement('div');
-    descriptionBox.id = 'powerup-description';
+    const descriptionBox = document.createElement("div");
+    descriptionBox.id = "powerup-description";
     descriptionBox.style.cssText = `
       position: absolute;
       top: 100%;
@@ -2353,45 +2638,50 @@ margin: 0.2rem 0rem !important;
       pointer-events: none;
       transition: opacity 0.3s ease;
     `;
-    
+
     const description = this.getPowerupDescription(powerup.name);
     const currentLevel = powerup.levels[powerup.level] || powerup.levels[0];
-    
+
     let detailedDescription = `<strong>${powerup.name}</strong><br>${description}<br><br>`;
-    
+
     for (const [key, value] of Object.entries(currentLevel)) {
-      detailedDescription += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}<br>`;
+      detailedDescription += `${
+        key.charAt(0).toUpperCase() + key.slice(1)
+      }: ${value}<br>`;
     }
-    
+
     descriptionBox.innerHTML = detailedDescription;
-    
+
     button.appendChild(descriptionBox);
-    
+
     // Fade in effect
     setTimeout(() => {
-      descriptionBox.style.opacity = '1';
+      descriptionBox.style.opacity = "1";
     }, 0);
   }
-  
+
   hidePowerupDescription() {
-    const descriptionBox = this.shadowRoot.getElementById('powerup-description');
+    const descriptionBox = this.shadowRoot.getElementById(
+      "powerup-description"
+    );
     if (descriptionBox) {
       descriptionBox.remove();
     }
   }
-  
-  
+
   getPowerupIcon(powerupName) {
     const iconMap = {
-      'Virus Pull Aura': '🦠',
-    'Quantum Tunneling': '🌀',
-    'Viral Replicator': '🧬',
-      'Temporal Rift': '⏳',
-      'Biome Catalyst': '🌿',
-      'Energy Efficiency': '🔋',
-      'Speed Boost': '⚡',
+      "Virus Pull Aura": "🦠",
+      "Quantum Tunneling": "🌀",
+      "Viral Replicator": "🧬",
+      "Temporal Rift": "⏳",
+      "Biome Catalyst": "🌿",
+      "Energy Efficiency": "🔋",
+      "Speed Boost": "⚡",
     };
-    return `<span style="font-size: 24px;">${iconMap[powerupName] || '🔮'}</span>`;
+    return `<span style="font-size: 24px;">${
+      iconMap[powerupName] || "🔮"
+    }</span>`;
   }
   getRandomPowerups(count) {
     const shuffled = POWERUPS.sort(() => 0.5 - Math.random());
@@ -2476,19 +2766,26 @@ margin: 0.2rem 0rem !important;
     }
   }
   selectNewPredatorCell() {
-    const availableCells = this.userOffspring.length > 0
-      ? this.userOffspring
-      : this.cells.filter(cell => !cell.isPrey && !(cell instanceof HybridCell) && !(cell instanceof AdaptiveCell));
-  
+    const availableCells =
+      this.userOffspring.length > 0
+        ? this.userOffspring
+        : this.cells.filter(
+            (cell) =>
+              !cell.isPrey &&
+              !(cell instanceof HybridCell) &&
+              !(cell instanceof AdaptiveCell)
+          );
+
     if (availableCells.length > 0) {
-      this.userControlledCell = availableCells[Math.floor(Math.random() * availableCells.length)];
+      this.userControlledCell =
+        availableCells[Math.floor(Math.random() * availableCells.length)];
       this.userControlledCell.isUserControlled = true;
       this.userControlledCell.age = 0;
       this.userControlledCell.level = 1;
       this.userControlledCell.preyEaten = 0;
       this.userControlledCell.color = "blue";
       this.updateUserDashboard();
-  
+
       // Center the camera on the user-controlled cell
       this.focusCameraOnCell(this.userControlledCell, true);
     } else {
@@ -2575,7 +2872,7 @@ margin: 0.2rem 0rem !important;
     if (index > -1) {
       this.cells.splice(index, 1);
     }
-  
+
     // If it's a user-controlled cell or offspring, handle accordingly
     if (cell === this.userControlledCell) {
       this.selectNewPredatorCell();
@@ -2584,7 +2881,7 @@ margin: 0.2rem 0rem !important;
     if (offspringIndex > -1) {
       this.userOffspring.splice(offspringIndex, 1);
     }
-  
+
     this.createDeathEffect(cell.x, cell.y);
     this.updatePopulationCounts();
   }
@@ -2594,7 +2891,7 @@ margin: 0.2rem 0rem !important;
         x,
         y,
         "rgba(255, 0, 0, 0.7)",
-        20,
+        5,
         "burst"
       );
     }
@@ -2604,9 +2901,9 @@ margin: 0.2rem 0rem !important;
       prey: 0,
       predator: 0,
       hybrid: 0,
-      adaptive: 0
+      adaptive: 0,
     };
-  
+
     for (const cell of this.cells) {
       if (cell instanceof HybridCell) {
         this.populationCounts.hybrid++;
@@ -2625,7 +2922,7 @@ margin: 0.2rem 0rem !important;
         x,
         y,
         "rgba(255, 0, 0, 0.7)",
-        20,
+        5,
         "burst"
       );
     }
@@ -2647,7 +2944,9 @@ margin: 0.2rem 0rem !important;
   togglePedigreeGraph(cellType) {
     this.isPedigreeGraphVisible = !this.isPedigreeGraphVisible;
     this.currentPedigreeType = this.isPedigreeGraphVisible ? cellType : null;
-    this.pedigreeGraphContainer.style.display = this.isPedigreeGraphVisible ? 'block' : 'none';
+    this.pedigreeGraphContainer.style.display = this.isPedigreeGraphVisible
+      ? "block"
+      : "none";
     if (this.isPedigreeGraphVisible) {
       this.updatePedigreeGraph(cellType);
     }
@@ -2681,7 +2980,7 @@ margin: 0.2rem 0rem !important;
       hybrid: this.hybridEyeColorDashboard,
       adaptive: this.shadowRoot.getElementById("adaptive-eye-color-dashboard"),
     };
-  
+
     Object.entries(dashboards).forEach(([key, dashboard]) => {
       if (dashboard) {
         if (key === type) {
@@ -2699,16 +2998,20 @@ margin: 0.2rem 0rem !important;
     if (!document.fullscreenElement) {
       if (this.requestFullscreen) {
         this.requestFullscreen().catch((err) => {
-          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          console.error(
+            `Error attempting to enable fullscreen: ${err.message}`
+          );
         });
-      } else if (this.webkitRequestFullscreen) { // For Safari
+      } else if (this.webkitRequestFullscreen) {
+        // For Safari
         this.webkitRequestFullscreen();
       }
       this.fullscreenButton.textContent = "↙";
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) { // For Safari
+      } else if (document.webkitExitFullscreen) {
+        // For Safari
         document.webkitExitFullscreen();
       }
       this.fullscreenButton.textContent = "⛶";
@@ -2785,12 +3088,12 @@ margin: 0.2rem 0rem !important;
     this.toggleFullHistoryGraphButton.classList.toggle("active");
   }
   toggleDebugMenu() {
-    const debugMenu = this.shadowRoot.getElementById('debug-menu');
+    const debugMenu = this.shadowRoot.getElementById("debug-menu");
     this.debugMenuVisible = !this.debugMenuVisible;
-    debugMenu.style.display = this.debugMenuVisible ? 'block' : 'none';
+    debugMenu.style.display = this.debugMenuVisible ? "block" : "none";
   }
 
-//SETUPS
+  //SETUPS
   setupGraph() {
     this.graphCanvas.width = 350;
     this.graphCanvas.height = 180;
@@ -2840,9 +3143,9 @@ margin: 0.2rem 0rem !important;
       this.toggleFPSCounter()
     );
   }
-  setupDebugMenu() {  
-    const debugMenu = document.createElement('div');
-    debugMenu.id = 'debug-menu';
+  setupDebugMenu() {
+    const debugMenu = document.createElement("div");
+    debugMenu.id = "debug-menu";
     debugMenu.style.cssText = `
       position: fixed;
       top: 60px;
@@ -2862,69 +3165,88 @@ margin: 0.2rem 0rem !important;
     this.shadowRoot.appendChild(debugMenu);
 
     const parameterGroups = {
-      'General Cell Parameters': [
-        'MAX_SPEED', 'MAX_ENERGY', 'MUTATION_RATE', 'MAX_AGE', 'MIN_SIZE_FACTOR', 'MAX_SIZE_FACTOR',
-        'EVOLUTION_BOOST'
+      "General Cell Parameters": [
+        "MAX_SPEED",
+        "MAX_ENERGY",
+        "MUTATION_RATE",
+        "MAX_AGE",
+        "MIN_SIZE_FACTOR",
+        "MAX_SIZE_FACTOR",
+        "EVOLUTION_BOOST",
       ],
-      'Prey Parameters': [
-        'PREY_REPRODUCTION_THRESHOLD', 'PREY_MOVEMENT_COST', 'PREY_REPRODUCTION_RATE',
-        'PREY_SPEED_ADVANTAGE', 'PREY_ESCAPE_CHANCE', 'PREY_DEFENSE_CHANCE', 'PREY_EVOLUTION_THRESHOLD'
+      "Prey Parameters": [
+        "PREY_REPRODUCTION_THRESHOLD",
+        "PREY_MOVEMENT_COST",
+        "PREY_REPRODUCTION_RATE",
+        "PREY_SPEED_ADVANTAGE",
+        "PREY_ESCAPE_CHANCE",
+        "PREY_DEFENSE_CHANCE",
+        "PREY_EVOLUTION_THRESHOLD",
       ],
-      'Predator Parameters': [
-        'PREDATOR_REPRODUCTION_THRESHOLD', 'PREDATOR_REPRODUCTION_RATE', 'PREDATOR_MOVEMENT_COST',
-        'PREDATOR_DIGESTION_TIME', 'PREDATOR_ENERGY_GAIN', 'PREDATOR_VISION_RANGE',
-        'PREDATOR_PACK_HUNTING_RADIUS', 'PREDATOR_EVOLUTION_THRESHOLD'
+      "Predator Parameters": [
+        "PREDATOR_REPRODUCTION_THRESHOLD",
+        "PREDATOR_REPRODUCTION_RATE",
+        "PREDATOR_MOVEMENT_COST",
+        "PREDATOR_DIGESTION_TIME",
+        "PREDATOR_ENERGY_GAIN",
+        "PREDATOR_VISION_RANGE",
+        "PREDATOR_PACK_HUNTING_RADIUS",
+        "PREDATOR_EVOLUTION_THRESHOLD",
       ],
-      'Pack Behavior': [
-        'PACK_HUNT_RADIUS', 'PACK_SIZE_THRESHOLD', 'PACK_SPEED_BOOST', 'PACK_VISION_BOOST',
-        'PACK_SPREAD_DISTANCE', 'PACK_ENERGY_SHARE_PERCENTAGE', 'MAX_PACK_SIZE',
-        'PACK_AVOIDANCE_RADIUS', 'PACK_AVOIDANCE_STRENGTH'
+      "Pack Behavior": [
+        "PACK_HUNT_RADIUS",
+        "PACK_SIZE_THRESHOLD",
+        "PACK_SPEED_BOOST",
+        "PACK_VISION_BOOST",
+        "PACK_SPREAD_DISTANCE",
+        "PACK_ENERGY_SHARE_PERCENTAGE",
+        "MAX_PACK_SIZE",
+        "PACK_AVOIDANCE_RADIUS",
+        "PACK_AVOIDANCE_STRENGTH",
       ],
-      'User-Controlled Parameters': [
-        'USER_CONTROLLED_REPRODUCTION_THRESHOLD'
-      ]
+      "User-Controlled Parameters": ["USER_CONTROLLED_REPRODUCTION_THRESHOLD"],
     };
 
     Object.entries(parameterGroups).forEach(([groupName, parameters]) => {
-      const groupContainer = document.createElement('div');
-      groupContainer.style.marginBottom = '20px';
+      const groupContainer = document.createElement("div");
+      groupContainer.style.marginBottom = "20px";
 
-      const groupTitle = document.createElement('h3');
+      const groupTitle = document.createElement("h3");
       groupTitle.textContent = groupName;
-      groupTitle.style.marginBottom = '10px';
+      groupTitle.style.marginBottom = "10px";
       groupContainer.appendChild(groupTitle);
 
-      parameters.forEach(paramName => {
+      parameters.forEach((paramName) => {
         const param = {
           name: paramName,
           get: () => CellConfig.get(paramName),
           set: (v) => CellConfig.setDebugOverride(paramName, v),
           min: 0,
           max: CellConfig.get(paramName) * 2,
-          step: CellConfig.get(paramName) / 100
+          step: CellConfig.get(paramName) / 100,
         };
 
-        const container = document.createElement('div');
-        container.style.marginBottom = '10px';
+        const container = document.createElement("div");
+        container.style.marginBottom = "10px";
 
-        const label = document.createElement('label');
+        const label = document.createElement("label");
         label.textContent = param.name;
-        label.style.display = 'block';
-        label.style.marginBottom = '5px';
+        label.style.display = "block";
+        label.style.marginBottom = "5px";
 
-        const input = document.createElement('input');
-        input.type = 'range';
+        const input = document.createElement("input");
+        input.type = "range";
         input.min = param.min;
         input.max = param.max;
         input.step = param.step;
         input.value = param.get();
-        input.style.width = '100%';
+        input.style.width = "100%";
 
-        const value = document.createElement('span');
+        const value = document.createElement("span");
         value.textContent = param.get();
-        value.style.marginLeft = '10px';
+        value.style.marginLeft = "10px";
 
-        input.addEventListener('input', (e) => {
+        input.addEventListener("input", (e) => {
           const newValue = parseFloat(e.target.value);
           value.textContent = newValue.toFixed(2);
           param.set(newValue);
@@ -2941,22 +3263,22 @@ margin: 0.2rem 0rem !important;
     });
 
     // Add a "Reset to Defaults" button
-    const resetButton = document.createElement('button');
-    resetButton.textContent = 'Reset to Defaults';
-    resetButton.style.marginTop = '20px';
-    resetButton.style.width = '100%';
-    resetButton.style.padding = '10px';
-    resetButton.style.backgroundColor = '#4CAF50';
-    resetButton.style.color = 'white';
-    resetButton.style.border = 'none';
-    resetButton.style.borderRadius = '5px';
-    resetButton.style.cursor = 'pointer';
-    resetButton.addEventListener('click', () => this.resetDebugOverrides());
+    const resetButton = document.createElement("button");
+    resetButton.textContent = "Reset to Defaults";
+    resetButton.style.marginTop = "20px";
+    resetButton.style.width = "100%";
+    resetButton.style.padding = "10px";
+    resetButton.style.backgroundColor = "#4CAF50";
+    resetButton.style.color = "white";
+    resetButton.style.border = "none";
+    resetButton.style.borderRadius = "5px";
+    resetButton.style.cursor = "pointer";
+    resetButton.addEventListener("click", () => this.resetDebugOverrides());
     debugMenu.appendChild(resetButton);
   }
   setupPedigreeGraph() {
-    this.pedigreeGraphContainer = document.createElement('div');
-    this.pedigreeGraphContainer.id = 'pedigree-graph-container';
+    this.pedigreeGraphContainer = document.createElement("div");
+    this.pedigreeGraphContainer.id = "pedigree-graph-container";
     this.pedigreeGraphContainer.style.cssText = `
       position: fixed;
       top: 20px;
@@ -2971,16 +3293,16 @@ margin: 0.2rem 0rem !important;
       z-index: 1000;
     `;
 
-    this.pedigreeGraphCanvas = document.createElement('canvas');
+    this.pedigreeGraphCanvas = document.createElement("canvas");
     this.pedigreeGraphCanvas.width = 470;
     this.pedigreeGraphCanvas.height = 200;
-    this.pedigreeGraphCtx = this.pedigreeGraphCanvas.getContext('2d');
+    this.pedigreeGraphCtx = this.pedigreeGraphCanvas.getContext("2d");
 
     this.pedigreeGraphContainer.appendChild(this.pedigreeGraphCanvas);
     this.shadowRoot.appendChild(this.pedigreeGraphContainer);
   }
 
-//UPDATES
+  //UPDATES
   updateCellTypes() {
     if (this.hybridMode) {
       const hybridColors = this.generateUniqueColors(this.params.hybridCount);
@@ -2996,11 +3318,13 @@ margin: 0.2rem 0rem !important;
         this.cells.push(cell);
       }
     } else {
-      this.cells = this.cells.filter(cell => !(cell instanceof HybridCell));
+      this.cells = this.cells.filter((cell) => !(cell instanceof HybridCell));
     }
 
     if (this.adaptiveMode) {
-      const adaptiveColors = this.generateUniqueColors(this.params.adaptiveCount);
+      const adaptiveColors = this.generateUniqueColors(
+        this.params.adaptiveCount
+      );
       for (let i = 0; i < this.params.adaptiveCount; i++) {
         const cell = new AdaptiveCell(
           Math.random() * this.mapWidth,
@@ -3013,88 +3337,93 @@ margin: 0.2rem 0rem !important;
         this.cells.push(cell);
       }
     } else {
-      this.cells = this.cells.filter(cell => !(cell instanceof AdaptiveCell));
+      this.cells = this.cells.filter((cell) => !(cell instanceof AdaptiveCell));
     }
   }
   updateDetailedDashboard(cells, eyeColor, cellType) {
     let dashboardId = `detailed-dashboard-${cellType}`;
     let dashboard = this.shadowRoot.getElementById(dashboardId);
-    
+
     // If the dashboard doesn't exist, create it
     if (!dashboard) {
-      dashboard = document.createElement('div');
+      dashboard = document.createElement("div");
       dashboard.id = dashboardId;
-      dashboard.className = 'detailed-dashboard';
+      dashboard.className = "detailed-dashboard";
       this.shadowRoot.appendChild(dashboard);
     }
 
     // If this dashboard is already open, close it and return
-    if (!dashboard.classList.contains('hidden')) {
-      dashboard.classList.add('hidden');
+    if (!dashboard.classList.contains("hidden")) {
+      dashboard.classList.add("hidden");
       this.followedCell = null;
       return;
     }
 
     // Close any other open dashboards
-    const allDashboards = this.shadowRoot.querySelectorAll('.detailed-dashboard');
-    allDashboards.forEach(db => db.classList.add('hidden'));
+    const allDashboards = this.shadowRoot.querySelectorAll(
+      ".detailed-dashboard"
+    );
+    allDashboards.forEach((db) => db.classList.add("hidden"));
 
-    
-      dashboard.classList.remove('hidden');
+    dashboard.classList.remove("hidden");
 
     let currentIndex = 0;
 
     const updateDashboard = () => {
       // Filter out dead cells
-      cells = cells.filter(cell => this.cells.includes(cell));
-      
+      cells = cells.filter((cell) => this.cells.includes(cell));
+
       if (cells.length === 0) {
         dashboard.innerHTML = "<p>No cells found with this eye color.</p>";
         this.followedCell = null;
-      dashboard.classList.add('hidden');
+        dashboard.classList.add("hidden");
         return;
       }
-    
+
       currentIndex = Math.min(currentIndex, cells.length - 1);
       const cell = cells[currentIndex];
-      
+
       if (this.gameMode === "simulation-only") {
         this.followedCell = cell;
         this.focusCameraOnCell(cell, true);
       }
-    
+
       // Add or remove the 'evolved' class based on the cell's evolution status
       if (cell.isEvolved) {
-        dashboard.classList.add('evolved');
+        dashboard.classList.add("evolved");
       } else {
-        dashboard.classList.remove('evolved');
+        dashboard.classList.remove("evolved");
       }
-    
+
       // Determine the correct label and value for eaten items
       let eatenLabel, eatenValue;
-      if (cellType === 'predator') {
-        eatenLabel = 'Prey Eaten';
+      if (cellType === "predator") {
+        eatenLabel = "Prey Eaten";
         eatenValue = cell.preyEaten || 0;
       } else {
-        eatenLabel = 'Food Eaten';
+        eatenLabel = "Food Eaten";
         eatenValue = cell.preyEaten || 0;
       }
 
       if (cell instanceof HybridCell || cell instanceof AdaptiveCell) {
-        eatenLabel = 'Food Eaten';
+        eatenLabel = "Food Eaten";
         eatenValue = cell.foodEaten || 0;
       }
-    
+
       dashboard.innerHTML = `
         <div class="cell-info">
           <div class="cell-stats">
             <div class="cell-stat">
               <span class="stat-label">Energy</span>
-              <span class="stat-value" id="cell-energy">${Math.floor(cell.energy)}</span>
+              <span class="stat-value" id="cell-energy">${Math.floor(
+                cell.energy
+              )}</span>
             </div>
             <div class="cell-stat">
               <span class="stat-label">Age</span>
-              <span class="stat-value" id="cell-age">${Math.floor(cell.age)}</span>
+              <span class="stat-value" id="cell-age">${Math.floor(
+                cell.age
+              )}</span>
             </div>
             <div class="cell-stat">
               <span class="stat-label">${eatenLabel}</span>
@@ -3102,15 +3431,21 @@ margin: 0.2rem 0rem !important;
             </div>
             <div class="cell-stat">
               <span class="stat-label">Speed</span>
-              <span class="stat-value">${cell.geneticTraits.speedModifier.toFixed(2)}</span>
+              <span class="stat-value">${cell.geneticTraits.speedModifier.toFixed(
+                2
+              )}</span>
             </div>
             <div class="cell-stat">
               <span class="stat-label">Energy Eff</span>
-              <span class="stat-value">${cell.geneticTraits.energyEfficiency.toFixed(2)}</span>
+              <span class="stat-value">${cell.geneticTraits.energyEfficiency.toFixed(
+                2
+              )}</span>
             </div>
             <div class="cell-stat">
               <span class="stat-label">Repro Bonus</span>
-              <span class="stat-value">${cell.geneticTraits.reproductionBonus.toFixed(2)}</span>
+              <span class="stat-value">${cell.geneticTraits.reproductionBonus.toFixed(
+                2
+              )}</span>
             </div>
           </div>
         </div>
@@ -3123,56 +3458,212 @@ margin: 0.2rem 0rem !important;
           <span class="cell-count">${currentIndex + 1} of ${cells.length}</span>
           <button id="next-cell" class="nav-button">▶</button>
         </div>
-        ${this.gameMode === "simulation-only" ? '<button id="unfollow-cell" class="nav-button">Unfollow</button>' : ''}
+        ${
+          this.gameMode === "simulation-only"
+            ? `<div class="action-buttons">
+                 <button id="unfollow-cell" class="action-button">Unfollow</button>
+                 <button id="view-genetics" class="action-button">View Genetics</button>
+               </div>`
+            : ""
+        }
       `;
-    
-      const prevButton = dashboard.querySelector('#prev-cell');
-      const nextButton = dashboard.querySelector('#next-cell');
-    
-      prevButton.addEventListener('click', () => {
+
+      const prevButton = dashboard.querySelector("#prev-cell");
+      const nextButton = dashboard.querySelector("#next-cell");
+
+      prevButton.addEventListener("click", () => {
         currentIndex = (currentIndex - 1 + cells.length) % cells.length;
         updateDashboard();
       });
-    
-      nextButton.addEventListener('click', () => {
+
+      nextButton.addEventListener("click", () => {
         currentIndex = (currentIndex + 1) % cells.length;
         updateDashboard();
       });
 
       if (this.gameMode === "simulation-only") {
-        const unfollowButton = dashboard.querySelector('#unfollow-cell');
-        unfollowButton.addEventListener('click', () => {
+        const unfollowButton = dashboard.querySelector("#unfollow-cell");
+        unfollowButton.addEventListener("click", () => {
           this.stopFollowingCell();
-          dashboard.classList.add('hidden');
+          dashboard.classList.add("hidden");
         });
       }
-    
+
+      const viewGeneticsButton = dashboard.querySelector("#view-genetics");
+      viewGeneticsButton.addEventListener("click", () => {
+        this.showGeneticsPopup(cell);
+      });
+
       // Update real-time stats
       const updateStats = () => {
-        const cellEnergy = dashboard.querySelector('#cell-energy');
-        const cellAge = dashboard.querySelector('#cell-age');
-        const cellEaten = dashboard.querySelector('#cell-eaten');
-    
+        const cellEnergy = dashboard.querySelector("#cell-energy");
+        const cellAge = dashboard.querySelector("#cell-age");
+        const cellEaten = dashboard.querySelector("#cell-eaten");
+
         if (cellEnergy && cellAge && cellEaten) {
-          cellEnergy.textContent = Math.floor(cell.energy);
-          cellAge.textContent = Math.floor(cell.age);
-          if (cell instanceof HybridCell || cell instanceof AdaptiveCell) {
-            cellEaten.textContent = cell.foodEaten || 0;
+          if (this.cells.includes(cell)) {
+            cellEnergy.textContent = Math.floor(cell.energy);
+            cellAge.textContent = Math.floor(cell.age);
+            if (cell instanceof HybridCell || cell instanceof AdaptiveCell) {
+              cellEaten.textContent = cell.foodEaten || 0;
+            } else {
+              cellEaten.textContent =
+                cellType === "predator"
+                  ? cell.preyEaten || 0
+                  : cell.foodEaten || 0;
+            }
           } else {
-            cellEaten.textContent = cellType === 'predator' ? (cell.preyEaten || 0) : (cell.foodEaten || 0);
+            // Cell has died, move to the next cell
+            currentIndex = (currentIndex + 1) % cells.length;
+            this.followedCell = cells[currentIndex];
+            this.focusCameraOnCell(this.followedCell, true);
+            updateDashboard();
+            return;
           }
         }
-    
-        if (!dashboard.classList.contains('hidden')) {
+
+        if (!dashboard.classList.contains("hidden")) {
           requestAnimationFrame(updateStats);
         }
       };
-    
+
       updateStats();
     };
 
     updateDashboard();
   }
+  showGeneticsPopup(cell) {
+    const traits = cell.interpretGeneCode();
+
+    const popup = document.createElement("div");
+    popup.id = "genetics-popup";
+    popup.innerHTML = `
+      <div class="gene-display">
+        <h3>Genetic Code:</h3>
+        <button id="close-genetics">✕</button>
+        <div class="gene-code">${cell.geneCode}</div>
+      </div>
+      <div class="traits-container">
+        <h3 class="trait-header">Traits:</h3>
+        <div class="traits-list">
+          ${Object.entries(traits)
+            .map(
+              ([trait, value]) => `
+            <div class="trait-item">
+              <span class="trait-label">${
+                trait.charAt(0).toUpperCase() + trait.slice(1)
+              }:</span>
+              <span class="trait-value">${value.toFixed(2)}</span>
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      </div>
+    `;
+
+    popup.style.cssText = `
+      position: fixed;
+      bottom: 30px;
+      left: 80px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-family: "Space Grotesk", sans-serif;
+      z-index: 1002;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+    `;
+
+    const geneDisplay = popup.querySelector(".gene-display");
+    geneDisplay.style.cssText = `
+      margin-bottom: 10px;
+      position: relative;
+    `;
+
+    const closeButton = popup.querySelector("#close-genetics");
+    closeButton.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 90px;
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+    `;
+
+    const geneCode = popup.querySelector(".gene-code");
+    geneCode.style.cssText = `
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 5px;
+      color: #2b6bff;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 5px;
+    `;
+
+    const traitsContainer = popup.querySelector(".traits-container");
+    traitsContainer.style.cssText = `
+      flex-grow: 1;
+      overflow-y: auto;
+      max-height: 150px;
+    `;
+
+    const traitsList = popup.querySelector(".traits-list");
+    traitsList.style.cssText = `
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+    `;
+
+    const traitItems = popup.querySelectorAll(".trait-item");
+    traitItems.forEach((el) => {
+      el.style.cssText = `
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 3px 5px;
+        border-radius: 3px;
+        color: ${cell.eyeColor};
+      `;
+    });
+
+    // Add custom scrollbar styles
+    const style = document.createElement("style");
+    style.textContent = `
+      #genetics-popup .traits-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      #genetics-popup .traits-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+      }
+      #genetics-popup .traits-container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+      #genetics-popup .traits-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    `;
+    popup.appendChild(style);
+
+    this.shadowRoot.appendChild(popup);
+
+    closeButton.addEventListener("click", () => {
+      this.shadowRoot.removeChild(popup);
+    });
+  }
+
   updatePedigreeGraph(cellType) {
     if (!this.isPedigreeGraphVisible || !cellType) return;
 
@@ -3183,11 +3674,11 @@ margin: 0.2rem 0rem !important;
     ctx.clearRect(0, 0, width, height);
 
     // Draw background
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
     ctx.fillRect(0, 0, width, height);
 
     // Draw grid
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.beginPath();
     for (let i = 0; i < width; i += 50) {
       ctx.moveTo(i, 0);
@@ -3202,8 +3693,8 @@ margin: 0.2rem 0rem !important;
     // Update eye color pedigree data
     const currentTime = Date.now() - this.startTime;
     const eyeColorCounts = {};
-    
-    this.cells.forEach(cell => {
+
+    this.cells.forEach((cell) => {
       if (this.getCellType(cell) === cellType) {
         if (!eyeColorCounts[cell.eyeColor]) {
           eyeColorCounts[cell.eyeColor] = 0;
@@ -3216,13 +3707,21 @@ margin: 0.2rem 0rem !important;
       if (!this.eyeColorPedigree[cellType][color]) {
         this.eyeColorPedigree[cellType][color] = [];
       }
-      this.eyeColorPedigree[cellType][color].push({ time: currentTime, count: count });
+      this.eyeColorPedigree[cellType][color].push({
+        time: currentTime,
+        count: count,
+      });
     });
 
     // Draw pedigree lines
     const pedigreeData = this.eyeColorPedigree[cellType];
     const maxTime = currentTime;
-    const maxCount = Math.max(...Object.values(pedigreeData).flat().map(d => d.count), 1);
+    const maxCount = Math.max(
+      ...Object.values(pedigreeData)
+        .flat()
+        .map((d) => d.count),
+      1
+    );
 
     Object.entries(pedigreeData).forEach(([color, data]) => {
       ctx.strokeStyle = color;
@@ -3246,8 +3745,8 @@ margin: 0.2rem 0rem !important;
     const boxSize = 10;
     const lineHeight = 20;
 
-    ctx.font = '12px Arial';
-    ctx.textBaseline = 'middle';
+    ctx.font = "12px Arial";
+    ctx.textBaseline = "middle";
 
     Object.keys(pedigreeData).forEach((color, index) => {
       const y = legendY + index * lineHeight;
@@ -3255,8 +3754,7 @@ margin: 0.2rem 0rem !important;
       ctx.fillStyle = color;
       ctx.fillRect(legendX, y, boxSize, boxSize);
 
-      ctx.fillStyle = 'white';
-    
+      ctx.fillStyle = "white";
     });
   }
   updateRuntime() {
@@ -3306,19 +3804,19 @@ margin: 0.2rem 0rem !important;
     this.drawFullHistoryGraph();
   }
   updateDebugMenuDisplay() {
-    const debugMenu = this.shadowRoot.getElementById('debug-menu');
+    const debugMenu = this.shadowRoot.getElementById("debug-menu");
     if (!debugMenu) return;
 
     const sliders = debugMenu.querySelectorAll('input[type="range"]');
-    sliders.forEach(slider => {
+    sliders.forEach((slider) => {
       const paramName = slider.id;
       const currentValue = CellConfig.get(paramName);
-      
+
       if (currentValue === undefined) {
         console.warn(`Parameter ${paramName} is undefined in CellConfig.`);
         return; // Skip this iteration
       }
-      
+
       try {
         slider.value = currentValue;
         slider.nextElementSibling.textContent = currentValue.toFixed(2);
@@ -3326,13 +3824,13 @@ margin: 0.2rem 0rem !important;
         console.error(`Error updating slider for ${paramName}:`, error);
       }
     });
-  } 
+  }
   updateDebugMenuDisplay() {
-    const debugMenu = this.shadowRoot.getElementById('debug-menu');
+    const debugMenu = this.shadowRoot.getElementById("debug-menu");
     if (!debugMenu) return;
 
     const sliders = debugMenu.querySelectorAll('input[type="range"]');
-    sliders.forEach(slider => {
+    sliders.forEach((slider) => {
       const paramName = slider.id;
       const currentValue = CellConfig.get(paramName);
       slider.value = currentValue;
@@ -3340,8 +3838,15 @@ margin: 0.2rem 0rem !important;
     });
   }
   updateSimulationState() {
-    this.cells.forEach(cell => {
-      cell.update(null, null, this.mapWidth, this.mapHeight, this.cells, 1/60); // Assume 60 FPS
+    this.cells.forEach((cell) => {
+      cell.update(
+        null,
+        null,
+        this.mapWidth,
+        this.mapHeight,
+        this.cells,
+        1 / 60
+      ); // Assume 60 FPS
     });
     this.updateGraph();
     this.updateDashboard();
@@ -3441,7 +3946,6 @@ margin: 0.2rem 0rem !important;
 
     const statsContainer = statsContainers[type];
     if (!statsContainer) {
-    
       return;
     }
 
@@ -3510,22 +4014,30 @@ margin: 0.2rem 0rem !important;
     statsContainer.innerHTML = statsHtml;
 
     // Add click event listeners to eye-color-items
-    statsContainer.querySelectorAll('.eye-color-item').forEach(item => {
-      item.addEventListener('click', () => {
+    statsContainer.querySelectorAll(".eye-color-item").forEach((item) => {
+      item.addEventListener("click", () => {
         const eyeColor = item.dataset.eyeColor;
         const cellType = item.dataset.cellType;
-        this.showDetailedCellDashboard(cellsByEyeColor[eyeColor], eyeColor, cellType);
+        this.showDetailedCellDashboard(
+          cellsByEyeColor[eyeColor],
+          eyeColor,
+          cellType
+        );
       });
     });
 
     // Add event listener to the pedigree graph toggle button
-    const togglePedigreeButton = statsContainer.querySelector(`#toggle-pedigree-graph-${type}`);
+    const togglePedigreeButton = statsContainer.querySelector(
+      `#toggle-pedigree-graph-${type}`
+    );
     if (togglePedigreeButton) {
-      togglePedigreeButton.addEventListener('click', () => this.togglePedigreeGraph(type));
+      togglePedigreeButton.addEventListener("click", () =>
+        this.togglePedigreeGraph(type)
+      );
     }
   }
-  
- //GUI, GRAPHS and DASHBOARDS
+
+  //GUI, GRAPHS and DASHBOARDS
   showDetailedCellDashboard(cells, eyeColor, cellType) {
     if (this.gameMode === "user-controlled") {
       // In game mode, just update the dashboard without changing camera focus
@@ -3533,7 +4045,12 @@ margin: 0.2rem 0rem !important;
     } else {
       // In simulation mode, update dashboard and focus camera
       this.updateDetailedDashboard(cells, eyeColor, cellType);
-      if (cells.length > 0 && !this.shadowRoot.querySelector(`#detailed-dashboard-${cellType}`).classList.contains('hidden')) {
+      if (
+        cells.length > 0 &&
+        !this.shadowRoot
+          .querySelector(`#detailed-dashboard-${cellType}`)
+          .classList.contains("hidden")
+      ) {
         this.followedCell = cells[0];
         this.focusCameraOnCell(this.followedCell, true); // true for immediate focus
       } else {
@@ -3542,11 +4059,10 @@ margin: 0.2rem 0rem !important;
     }
   }
   focusCameraOnCell(cell, immediate = false) {
-
     if (!cell) return;
     const targetX = cell.x - this.viewportWidth / 2;
     const targetY = cell.y - this.viewportHeight / 2;
-  
+
     if (immediate) {
       this.cameraX = targetX;
       this.cameraY = targetY;
@@ -3556,16 +4072,24 @@ margin: 0.2rem 0rem !important;
       this.cameraX += (targetX - this.cameraX) * smoothFactor;
       this.cameraY += (targetY - this.cameraY) * smoothFactor;
     }
-  
+
     // Ensure the camera stays within the map bounds
-    this.cameraX = Math.max(0, Math.min(this.cameraX, this.mapWidth - this.viewportWidth));
-    this.cameraY = Math.max(0, Math.min(this.cameraY, this.mapHeight - this.viewportHeight));
+    this.cameraX = Math.max(
+      0,
+      Math.min(this.cameraX, this.mapWidth - this.viewportWidth)
+    );
+    this.cameraY = Math.max(
+      0,
+      Math.min(this.cameraY, this.mapHeight - this.viewportHeight)
+    );
   }
   stopFollowingCell() {
     this.followedCell = null;
-    const dashboard = this.shadowRoot.querySelector('.detailed-dashboard:not(.hidden)');
+    const dashboard = this.shadowRoot.querySelector(
+      ".detailed-dashboard:not(.hidden)"
+    );
     if (dashboard) {
-      dashboard.classList.add('hidden');
+      dashboard.classList.add("hidden");
     }
   }
   handleFullscreenChange() {
@@ -4017,16 +4541,16 @@ margin: 0.2rem 0rem !important;
     this.debugOverrides[paramName] = value;
   }
   applyDebugOverrides() {
-    const debugMenu = this.shadowRoot.getElementById('debug-menu');
+    const debugMenu = this.shadowRoot.getElementById("debug-menu");
     if (!debugMenu) return;
-  
+
     const sliders = debugMenu.querySelectorAll('input[type="range"]');
-    sliders.forEach(slider => {
+    sliders.forEach((slider) => {
       const paramName = slider.id;
       const value = parseFloat(slider.value);
       CellConfig.setDebugOverride(paramName, value);
     });
-  
+
     this.updateSimulationState();
   }
   resetDebugOverrides() {
@@ -4035,17 +4559,11 @@ margin: 0.2rem 0rem !important;
     this.updateSimulationState();
   }
 
-
   //START UP and END GAME
   startNewGame() {
-    
-
     // Set up for user-controlled mode
     this.gameMode = "user-controlled";
     this.selectNewPredatorCell();
-
-
-    
 
     // Show the user dashboard
     if (this.userDashboard) {
@@ -4064,7 +4582,8 @@ margin: 0.2rem 0rem !important;
 
       // Reset and update user dashboard
       if (this.userDashboard) {
-        this.userDashboard.style.display = mode === "user-controlled" ? "block" : "none";
+        this.userDashboard.style.display =
+          mode === "user-controlled" ? "block" : "none";
         this.updateUserDashboard();
       }
     }, 300);
@@ -4072,12 +4591,12 @@ margin: 0.2rem 0rem !important;
   startSimulation() {
     // Initialize the simulation
     this.initializeSimulation();
-  
+
     // Start the animation loop
     this.isRunning = true;
     this.lastTimestamp = 0;
     this.animate(performance.now());
-  
+
     // Start the runtime calculation
     this.startTime = Date.now();
     this.runtimeInterval = setInterval(() => this.updateRuntime(), 1000);
@@ -4224,60 +4743,69 @@ margin: 0.2rem 0rem !important;
   checkEndgame() {
     const currentTime = Date.now();
     const gameStartDelay = 15000; // 15 seconds delay
-  
+
     if (currentTime - this.startTime < gameStartDelay) {
       return false; // Don't check for endgame during the initial delay
     }
-  
+
     if (this.gameMode === "user-controlled") {
-      const userControlledPredatorCount = this.cells.filter(cell => 
-        (cell === this.userControlledCell || cell.isUserOffspring) && 
-        !cell.isPrey && 
-        !(cell instanceof HybridCell) && 
-        !(cell instanceof AdaptiveCell)
+      const userControlledPredatorCount = this.cells.filter(
+        (cell) =>
+          (cell === this.userControlledCell || cell.isUserOffspring) &&
+          !cell.isPrey &&
+          !(cell instanceof HybridCell) &&
+          !(cell instanceof AdaptiveCell)
       ).length;
-  
-      const preyCount = this.cells.filter(cell => 
-        cell.isPrey || 
-        cell instanceof HybridCell || 
-        cell instanceof AdaptiveCell
+
+      const preyCount = this.cells.filter(
+        (cell) =>
+          cell.isPrey ||
+          cell instanceof HybridCell ||
+          cell instanceof AdaptiveCell
       ).length;
-  
-      if (userControlledPredatorCount === 0 && this.userOffspring.length === 0) {
+
+      if (
+        userControlledPredatorCount === 0 &&
+        this.userOffspring.length === 0
+      ) {
         this.showEndgamePopup("Prey");
         return true;
       }
-  
+
       if (preyCount === 0) {
         this.showEndgamePopup("Predator");
         return true;
       }
-  
     } else {
       // Simulation mode logic
       if (!this.populationCounts) {
         this.updatePopulationCounts();
       }
-      
+
       const cellTypes = {
         prey: this.populationCounts.prey,
         predator: this.populationCounts.predator,
         hybrid: this.populationCounts.hybrid,
         adaptive: this.populationCounts.adaptive,
       };
-  
+
       const totalCells = Object.values(cellTypes).reduce((a, b) => a + b, 0);
-      const nonZeroTypes = Object.entries(cellTypes).filter(([_, count]) => count > 0);
-  
-      const endgameThreshold = Math.max(10, Math.floor(this.mapWidth * this.mapHeight / 100000));
-  
+      const nonZeroTypes = Object.entries(cellTypes).filter(
+        ([_, count]) => count > 0
+      );
+
+      const endgameThreshold = Math.max(
+        10,
+        Math.floor((this.mapWidth * this.mapHeight) / 100000)
+      );
+
       if (nonZeroTypes.length === 1 && totalCells > endgameThreshold) {
         const [winnerType, _] = nonZeroTypes[0];
         this.showEndgamePopup(this.getWinnerDisplayName(winnerType));
         return true;
       }
     }
-  
+
     return false;
   }
   getWinnerDisplayName(winnerType) {
@@ -4557,8 +5085,6 @@ margin: 0.2rem 0rem !important;
     }
 
     this.lastFoodRegenerationTime = currentTime;
-
-    
   }
   updateRandomFood(timeSinceLastRegeneration) {
     const foodToAdd = Math.floor(
@@ -4680,7 +5206,7 @@ margin: 0.2rem 0rem !important;
   wrapCoordinates(x, y) {
     return {
       x: (x + this.mapWidth) % this.mapWidth,
-      y: (y + this.mapHeight) % this.mapHeight
+      y: (y + this.mapHeight) % this.mapHeight,
     };
   }
   calculateDesiredFoodCount() {
@@ -4707,13 +5233,12 @@ margin: 0.2rem 0rem !important;
     const x = feedingArea.x + Math.cos(angle) * distance;
     const y = feedingArea.y + Math.sin(angle) * distance;
 
-     // Ensure food is within map bounds
-  x = Math.max(0, Math.min(x, this.mapWidth));
-  y = Math.max(0, Math.min(y, this.mapHeight));
+    x = Math.max(0, Math.min(x, this.mapWidth));
+    y = Math.max(0, Math.min(y, this.mapHeight));
 
     const food = new Food(x, y);
     feedingArea.food.push(food);
-    this.food.push(food); // Add to main food array as well
+    this.food.push(food);
   }
   calculateFoodCount() {
     let foodCount = this.baseFoodCount;
@@ -4723,23 +5248,26 @@ margin: 0.2rem 0rem !important;
   }
 
   //RANDOM UTILS
-  adjustReproductionLimits(preyLimit, predatorLimit, hybridLimit, adaptiveLimit) {
-    this.cells.forEach(cell => {
+  adjustReproductionLimits(
+    preyLimit,
+    predatorLimit,
+    hybridLimit,
+    adaptiveLimit
+  ) {
+    this.cells.forEach((cell) => {
       if (cell instanceof HybridCell) {
         cell.maxOffspringPerReproduction = hybridLimit;
       } else if (cell instanceof AdaptiveCell) {
         cell.maxOffspringPerReproduction = adaptiveLimit;
       } else if (cell.isPrey) {
         cell.maxOffspringPerReproduction = preyLimit;
-      } else {
-        cell.maxOffspringPerReproduction = predatorLimit;
       }
     });
   }
   restartSimulation(specifiedGameMode = null) {
     this.clearVirusAnimation();
-     // Use the current game mode if no new mode is specified
-     const gameMode = specifiedGameMode || this.gameMode;
+    // Use the current game mode if no new mode is specified
+    const gameMode = specifiedGameMode || this.gameMode;
     // Cancel any ongoing animation
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
@@ -4773,8 +5301,6 @@ margin: 0.2rem 0rem !important;
       hybridCount: 0,
       adaptiveCount: 0,
     };
-
-   
 
     // Clear the graph data
     this.populationData = [];
@@ -4844,7 +5370,6 @@ margin: 0.2rem 0rem !important;
         this.userDashboard.style.display = "none";
       }
     }
-
 
     // Reset and restart the animation
     this.isRunning = true;
@@ -5015,7 +5540,6 @@ margin: 0.2rem 0rem !important;
       color === "purple" ? "rgba(128, 0, 128, 0.7)" : "rgba(0, 128, 128, 0.7)";
     this.particleSystem.addParticles(x, y, particleColor, particleCount);
   }
-
 }
 
 //Flock Variables
@@ -5033,30 +5557,30 @@ const CellConfig = {
     MIN_SIZE_FACTOR: 0.75,
     MAX_SIZE_FACTOR: 3,
     PREY_REPRODUCTION_THRESHOLD: 89.45,
-    PREY_MOVEMENT_COST: 0.08,
+    PREY_MOVEMENT_COST: 0.07,
     PREY_REPRODUCTION_RATE: 2,
-    PREY_SPEED_ADVANTAGE: 1.22,
-    PREY_ESCAPE_CHANCE: 0.01,
-    PREY_DEFENSE_CHANCE: 0.02,
-    PREDATOR_REPRODUCTION_THRESHOLD: 65,
-    PREDATOR_REPRODUCTION_RATE: 1.5,
-    PREDATOR_MOVEMENT_COST: 0.009,
-    PREDATOR_DIGESTION_TIME: 0.03,
-    PREDATOR_ENERGY_GAIN: 85,
+    PREY_SPEED_ADVANTAGE: 1.35,
+    PREY_ESCAPE_CHANCE: 0.001,
+    PREY_DEFENSE_CHANCE: 0.002,
+    PREDATOR_REPRODUCTION_THRESHOLD: 75,
+    PREDATOR_REPRODUCTION_RATE: 1.25,
+    PREDATOR_MOVEMENT_COST: 0.015,
+    PREDATOR_DIGESTION_TIME: 99,
+    PREDATOR_ENERGY_GAIN: 70,
     PREDATOR_VISION_RANGE: 360,
     PREDATOR_PACK_HUNTING_RADIUS: 120,
     PACK_HUNT_RADIUS: 120,
     PACK_SIZE_THRESHOLD: 2,
-    PACK_SPEED_BOOST: 1.3,
+    PACK_SPEED_BOOST: 1.25,
     PACK_VISION_BOOST: 1.3,
     PACK_SPREAD_DISTANCE: 55,
     PACK_ENERGY_SHARE_PERCENTAGE: 0.25,
     MAX_PACK_SIZE: 45,
     PACK_AVOIDANCE_RADIUS: 150,
     PACK_AVOIDANCE_STRENGTH: 0.8,
-    PREY_EVOLUTION_THRESHOLD: 500,
-    PREDATOR_EVOLUTION_THRESHOLD: 10,
-    EVOLUTION_BOOST: 1.35,
+    PREY_EVOLUTION_THRESHOLD: 200,
+    PREDATOR_EVOLUTION_THRESHOLD: 75,
+    EVOLUTION_BOOST: 1.25,
     USER_CONTROLLED_REPRODUCTION_THRESHOLD: 70,
   },
   debugOverrides: {},
@@ -5067,7 +5591,6 @@ const CellConfig = {
     } else if (this.defaults.hasOwnProperty(key)) {
       return this.defaults[key];
     } else {
-      
       return 0; // or some default value
     }
   },
@@ -5084,102 +5607,166 @@ const CellConfig = {
 
   resetToDefaults() {
     this.debugOverrides = {};
-  }
+  },
 };
 
 const POWERUPS = [
   {
-    name: 'Virus Pull Aura',
-    description: 'Creates a pulling aura around the cell',
+    name: "Virus Pull Aura",
+    description: "Creates a pulling aura around the cell",
     levels: Array.from({ length: 10 }, (_, i) => ({
       radius: 50 + i * 10,
-      strength: 0.1 + i * 0.02
-    }))
+      strength: 0.1 + i * 0.02,
+    })),
   },
   {
-    name: 'Quantum Tunneling',
-    description: 'Teleport to high-density prey areas',
+    name: "Quantum Tunneling",
+    description: "Teleport to high-density prey areas",
     levels: Array.from({ length: 10 }, (_, i) => ({
       cooldown: 15 - i * 0.5,
-      range: 100 + i * 20
-    }))
+      range: 100 + i * 20,
+    })),
   },
   {
-    name: 'Viral Replicator',
-    description: 'Infect and convert nearby prey',
+    name: "Viral Replicator",
+    description: "Infect and convert nearby prey",
     levels: Array.from({ length: 10 }, (_, i) => ({
       infectionRadius: 50 + i * 10,
       conversionTime: 10 - i * 0.5,
-      maxInfected: 3 + i
-    }))
+      maxInfected: 3 + i,
+    })),
   },
   {
-    name: 'Temporal Rift',
-    description: 'Create time distortions affecting nearby cells',
+    name: "Temporal Rift",
+    description: "Create time distortions affecting nearby cells",
     levels: Array.from({ length: 10 }, (_, i) => ({
       radius: 50 + i * 10,
       duration: 5 + i,
-      timeWarpFactor: 1.5 + i * 0.1
-    }))
+      timeWarpFactor: 1.5 + i * 0.1,
+    })),
   },
   {
-    name: 'Biome Catalyst',
-    description: 'Transform the environment to favor predators',
+    name: "Biome Catalyst",
+    description: "Transform the environment to favor predators",
     levels: Array.from({ length: 10 }, (_, i) => ({
       transformRadius: 60 + i * 10,
       duration: 10 + i * 2,
-      preyWeakeningFactor: 0.8 - i * 0.05
-    }))
+      preyWeakeningFactor: 0.8 - i * 0.05,
+    })),
   },
   {
-    name: 'Energy Efficiency',
-    description: 'Reduces energy consumption',
+    name: "Energy Efficiency",
+    description: "Reduces energy consumption",
     levels: Array.from({ length: 10 }, (_, i) => ({
-      reduction: 0.9 - i * 0.05
-    }))
+      reduction: 0.9 - i * 0.05,
+    })),
   },
   {
-    name: 'Speed Boost',
-    description: 'Increases movement speed',
+    name: "Speed Boost",
+    description: "Increases movement speed",
     levels: Array.from({ length: 10 }, (_, i) => ({
-      boost: 1.2 + i * 0.1
-    }))
-  }
+      boost: 1.2 + i * 0.1,
+    })),
+  },
 ];
 
 class Cell {
-  static get MAX_SPEED() { return CellConfig.get('MAX_SPEED'); }
-  static get MAX_ENERGY() { return CellConfig.get('MAX_ENERGY'); }
-  static get MUTATION_RATE() { return CellConfig.get('MUTATION_RATE'); }
-  static get MAX_AGE() { return CellConfig.get('MAX_AGE'); }
-  static get MIN_SIZE_FACTOR() { return CellConfig.get('MIN_SIZE_FACTOR'); }
-  static get MAX_SIZE_FACTOR() { return CellConfig.get('MAX_SIZE_FACTOR'); }
-  static get PREY_REPRODUCTION_THRESHOLD() { return CellConfig.get('PREY_REPRODUCTION_THRESHOLD'); }
-  static get PREY_MOVEMENT_COST() { return CellConfig.get('PREY_MOVEMENT_COST'); }
-  static get PREY_REPRODUCTION_RATE() { return CellConfig.get('PREY_REPRODUCTION_RATE'); }
-  static get PREY_SPEED_ADVANTAGE() { return CellConfig.get('PREY_SPEED_ADVANTAGE'); }
-  static get PREY_ESCAPE_CHANCE() { return CellConfig.get('PREY_ESCAPE_CHANCE'); }
-  static get PREY_DEFENSE_CHANCE() { return CellConfig.get('PREY_DEFENSE_CHANCE'); }
-  static get PREDATOR_REPRODUCTION_THRESHOLD() { return CellConfig.get('PREDATOR_REPRODUCTION_THRESHOLD'); }
-  static get PREDATOR_REPRODUCTION_RATE() { return CellConfig.get('PREDATOR_REPRODUCTION_RATE'); }
-  static get PREDATOR_MOVEMENT_COST() { return CellConfig.get('PREDATOR_MOVEMENT_COST'); }
-  static get PREDATOR_DIGESTION_TIME() { return CellConfig.get('PREDATOR_DIGESTION_TIME'); }
-  static get PREDATOR_ENERGY_GAIN() { return CellConfig.get('PREDATOR_ENERGY_GAIN'); }
-  static get PREDATOR_VISION_RANGE() { return CellConfig.get('PREDATOR_VISION_RANGE'); }
-  static get PREDATOR_PACK_HUNTING_RADIUS() { return CellConfig.get('PREDATOR_PACK_HUNTING_RADIUS'); }
-  static get PACK_HUNT_RADIUS() { return CellConfig.get('PACK_HUNT_RADIUS'); }
-  static get PACK_SIZE_THRESHOLD() { return CellConfig.get('PACK_SIZE_THRESHOLD'); }
-  static get PACK_SPEED_BOOST() { return CellConfig.get('PACK_SPEED_BOOST'); }
-  static get PACK_VISION_BOOST() { return CellConfig.get('PACK_VISION_BOOST'); }
-  static get PACK_SPREAD_DISTANCE() { return CellConfig.get('PACK_SPREAD_DISTANCE'); }
-  static get PACK_ENERGY_SHARE_PERCENTAGE() { return CellConfig.get('PACK_ENERGY_SHARE_PERCENTAGE'); }
-  static get MAX_PACK_SIZE() { return CellConfig.get('MAX_PACK_SIZE'); }
-  static get PACK_AVOIDANCE_RADIUS() { return CellConfig.get('PACK_AVOIDANCE_RADIUS'); }
-  static get PACK_AVOIDANCE_STRENGTH() { return CellConfig.get('PACK_AVOIDANCE_STRENGTH'); }
-  static get PREY_EVOLUTION_THRESHOLD() { return CellConfig.get('PREY_EVOLUTION_THRESHOLD'); }
-  static get PREDATOR_EVOLUTION_THRESHOLD() { return CellConfig.get('PREDATOR_EVOLUTION_THRESHOLD'); }
-  static get EVOLUTION_BOOST() { return CellConfig.get('EVOLUTION_BOOST'); }
-  static get USER_CONTROLLED_REPRODUCTION_THRESHOLD() { return CellConfig.get('USER_CONTROLLED_REPRODUCTION_THRESHOLD'); }
+  static get MAX_SPEED() {
+    return CellConfig.get("MAX_SPEED");
+  }
+  static get MAX_ENERGY() {
+    return CellConfig.get("MAX_ENERGY");
+  }
+  static get MUTATION_RATE() {
+    return CellConfig.get("MUTATION_RATE");
+  }
+  static get MAX_AGE() {
+    return CellConfig.get("MAX_AGE");
+  }
+  static get MIN_SIZE_FACTOR() {
+    return CellConfig.get("MIN_SIZE_FACTOR");
+  }
+  static get MAX_SIZE_FACTOR() {
+    return CellConfig.get("MAX_SIZE_FACTOR");
+  }
+  static get PREY_REPRODUCTION_THRESHOLD() {
+    return CellConfig.get("PREY_REPRODUCTION_THRESHOLD");
+  }
+  static get PREY_MOVEMENT_COST() {
+    return CellConfig.get("PREY_MOVEMENT_COST");
+  }
+  static get PREY_REPRODUCTION_RATE() {
+    return CellConfig.get("PREY_REPRODUCTION_RATE");
+  }
+  static get PREY_SPEED_ADVANTAGE() {
+    return CellConfig.get("PREY_SPEED_ADVANTAGE");
+  }
+  static get PREY_ESCAPE_CHANCE() {
+    return CellConfig.get("PREY_ESCAPE_CHANCE");
+  }
+  static get PREY_DEFENSE_CHANCE() {
+    return CellConfig.get("PREY_DEFENSE_CHANCE");
+  }
+  static get PREDATOR_REPRODUCTION_THRESHOLD() {
+    return CellConfig.get("PREDATOR_REPRODUCTION_THRESHOLD");
+  }
+  static get PREDATOR_REPRODUCTION_RATE() {
+    return CellConfig.get("PREDATOR_REPRODUCTION_RATE");
+  }
+  static get PREDATOR_MOVEMENT_COST() {
+    return CellConfig.get("PREDATOR_MOVEMENT_COST");
+  }
+  static get PREDATOR_DIGESTION_TIME() {
+    return CellConfig.get("PREDATOR_DIGESTION_TIME");
+  }
+  static get PREDATOR_ENERGY_GAIN() {
+    return CellConfig.get("PREDATOR_ENERGY_GAIN");
+  }
+  static get PREDATOR_VISION_RANGE() {
+    return CellConfig.get("PREDATOR_VISION_RANGE");
+  }
+  static get PREDATOR_PACK_HUNTING_RADIUS() {
+    return CellConfig.get("PREDATOR_PACK_HUNTING_RADIUS");
+  }
+  static get PACK_HUNT_RADIUS() {
+    return CellConfig.get("PACK_HUNT_RADIUS");
+  }
+  static get PACK_SIZE_THRESHOLD() {
+    return CellConfig.get("PACK_SIZE_THRESHOLD");
+  }
+  static get PACK_SPEED_BOOST() {
+    return CellConfig.get("PACK_SPEED_BOOST");
+  }
+  static get PACK_VISION_BOOST() {
+    return CellConfig.get("PACK_VISION_BOOST");
+  }
+  static get PACK_SPREAD_DISTANCE() {
+    return CellConfig.get("PACK_SPREAD_DISTANCE");
+  }
+  static get PACK_ENERGY_SHARE_PERCENTAGE() {
+    return CellConfig.get("PACK_ENERGY_SHARE_PERCENTAGE");
+  }
+  static get MAX_PACK_SIZE() {
+    return CellConfig.get("MAX_PACK_SIZE");
+  }
+  static get PACK_AVOIDANCE_RADIUS() {
+    return CellConfig.get("PACK_AVOIDANCE_RADIUS");
+  }
+  static get PACK_AVOIDANCE_STRENGTH() {
+    return CellConfig.get("PACK_AVOIDANCE_STRENGTH");
+  }
+  static get PREY_EVOLUTION_THRESHOLD() {
+    return CellConfig.get("PREY_EVOLUTION_THRESHOLD");
+  }
+  static get PREDATOR_EVOLUTION_THRESHOLD() {
+    return CellConfig.get("PREDATOR_EVOLUTION_THRESHOLD");
+  }
+  static get EVOLUTION_BOOST() {
+    return CellConfig.get("EVOLUTION_BOOST");
+  }
+  static get USER_CONTROLLED_REPRODUCTION_THRESHOLD() {
+    return CellConfig.get("USER_CONTROLLED_REPRODUCTION_THRESHOLD");
+  }
   static resetDefaults() {
     CellConfig.resetToDefaults();
   }
@@ -5204,7 +5791,7 @@ class Cell {
     this.vy = 0;
     this.defenseStrength = Math.random() * 0.5;
     this.flockingEnabled = false;
-    this.digesting = 0;
+
     this.consecutiveKills = 0;
     this.evolutionProgress = 0;
     this.isEvolved = false;
@@ -5217,7 +5804,7 @@ class Cell {
     this.isUserControlled = false;
     this.level = 1;
     this.preyEatenForNextLevel = 5;
-    
+
     this.virusAura = null;
     this.isUserOffspring = false;
     this.powerups = [];
@@ -5230,8 +5817,10 @@ class Cell {
     this.projectiles = [];
     this.projectileShootTimer = 0;
     this.maxOffspringPerReproduction = isPrey ? 60 : 40;
-    
+
     this.parentEyeColor = eyeColor;
+    this.geneCode = this.generateGeneCode();
+    this.applyGeneCode();
 
     this.attributes = attributes || {
       maxSpeed: isPrey
@@ -5250,7 +5839,7 @@ class Cell {
 
     this.isPrey = isPrey;
     if (!this.isPrey) {
-      this.spikeCount = spikeCount || Math.floor(Math.random() * 5) + 4; // Random number of spikes between 4 and 8
+      this.spikeCount = spikeCount || Math.floor(Math.random() * 4) + 6; // Random number of spikes between 4 and 8
     }
 
     this.eyeColor = eyeColor || this.generateRandomColor();
@@ -5261,15 +5850,16 @@ class Cell {
 
   update(nearestFood, nearestCell, width, height, neighbors, deltaTime) {
     let targetX, targetY;
-  
-  
+
     if (this.isPrey && nearestFood) {
       targetX = nearestFood.x;
       targetY = nearestFood.y;
     } else if (!this.isPrey) {
       const nearbyPrey = neighbors.filter(
-        (cell) => cell.isPrey && 
-        Math.hypot(cell.x - this.x, cell.y - this.y) < Cell.PREDATOR_VISION_RANGE * this.geneticTraits.speedModifier
+        (cell) =>
+          cell.isPrey &&
+          Math.hypot(cell.x - this.x, cell.y - this.y) <
+            Cell.PREDATOR_VISION_RANGE * this.geneticTraits.speedModifier
       );
       if (nearbyPrey.length > 0) {
         const target = this.findNearestPrey(nearbyPrey);
@@ -5283,55 +5873,53 @@ class Cell {
       targetX = this.x + (Math.random() - 0.5) * 100;
       targetY = this.y + (Math.random() - 0.5) * 100;
     }
-      
 
-      
     const dx = targetX - this.x;
     const dy = targetY - this.y;
     const magnitude = Math.sqrt(dx * dx + dy * dy);
-  
+
     let targetVx = 0;
     let targetVy = 0;
-  
+
     if (magnitude > 0) {
       targetVx = (dx / magnitude) * this.attributes.maxSpeed;
       targetVy = (dy / magnitude) * this.attributes.maxSpeed;
     }
 
- // Apply collision avoidance
- if (this.isPrey || !nearestCell || !nearestCell.isPrey) {
-  const avoidanceForce = this.calculateCollisionAvoidance(neighbors);
-  targetVx += avoidanceForce.x;
-  targetVy += avoidanceForce.y;
-}
+    // Apply collision avoidance
+    if (this.isPrey || !nearestCell || !nearestCell.isPrey) {
+      const avoidanceForce = this.calculateCollisionAvoidance(neighbors);
+      targetVx += avoidanceForce.x;
+      targetVy += avoidanceForce.y;
+    }
 
-
-const easing = this.isPrey ? 0.05 : 0.1;
+    const easing = this.isPrey ? 0.05 : 0.1;
     this.vx += (targetVx - this.vx) * easing;
     this.vy += (targetVy - this.vy) * easing;
-  
+
     const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-    const maxSpeed = this.attributes.maxSpeed * this.geneticTraits.speedModifier;
+    const maxSpeed =
+      this.attributes.maxSpeed * this.geneticTraits.speedModifier;
     if (speed > maxSpeed) {
       const factor = maxSpeed / speed;
       this.vx *= factor;
       this.vy *= factor;
     }
-  
+
     const wrappedCoords = this.simulation.wrapCoordinates(this.x, this.y);
     this.x = wrappedCoords.x;
     this.y = wrappedCoords.y;
-  
+
     this.x += this.vx * deltaTime * 60;
     this.y += this.vy * deltaTime * 60;
-  
+
     if (!this.isPrey) {
       if (this.digesting > 0) {
         this.digesting -= deltaTime;
         this.vx *= 0.95;
         this.vy *= 0.95;
       }
-  
+
       if (this.flockingEnabled && Math.random() < 0.1) {
         this.simulation.particleSystem.addParticles(
           this.x,
@@ -5341,9 +5929,9 @@ const easing = this.isPrey ? 0.05 : 0.1;
           "trail"
         );
       }
-  
+
       const extraCost = Math.min(this.consecutiveKills * 0.0006, 0.05);
-      
+
       this.energy -=
         ((this.attributes.movementCost + extraCost) /
           this.geneticTraits.energyEfficiency) *
@@ -5355,7 +5943,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
         deltaTime *
         60;
     }
-  
+
     if (!this.isUserControlled) {
       const evolutionThreshold = this.isPrey
         ? Cell.PREY_EVOLUTION_THRESHOLD
@@ -5364,37 +5952,44 @@ const easing = this.isPrey ? 0.05 : 0.1;
         this.evolve();
       }
     }
-  
+
     if (this.virusAura) {
       const affectedCells = this.applyVirusAura(neighbors);
       if (this.simulation && this.simulation.particleSystem) {
-        affectedCells.forEach(cell => {
-          this.simulation.particleSystem.addParticles(cell.x, cell.y, "rgba(0, 255, 0, 0.5)", 3, "virusEffect");
+        affectedCells.forEach((cell) => {
+          this.simulation.particleSystem.addParticles(
+            cell.x,
+            cell.y,
+            "rgba(0, 255, 0, 0.5)",
+            3,
+            "virusEffect"
+          );
         });
       }
     }
 
     this.age += deltaTime;
     if (this.age >= Cell.MAX_AGE) {
-        // Rapidly decrease energy when cell reaches MAX_AGE
-        this.energy = Math.max(0, this.energy - (10 * deltaTime));
+      // Rapidly decrease energy when cell reaches MAX_AGE
+      this.energy = Math.max(0, this.energy - 10 * deltaTime);
     }
-  
-   
-  
+
     this.flock(neighbors);
-    
+
     this.updateSizeBasedOnAge();
     this.updateBiomeCatalyst(deltaTime, neighbors);
     this.updateViralReplicator(deltaTime, neighbors);
     this.updateTemporalRift(deltaTime, neighbors);
     this.updateQuantumTunneling(deltaTime, neighbors);
 
-    this.energy -= (this.attributes.movementCost / this.geneticTraits.energyEfficiency) * deltaTime * 60;
+    this.energy -=
+      (this.attributes.movementCost / this.geneticTraits.energyEfficiency) *
+      deltaTime *
+      60;
     if (this.energy <= 0) {
       this.simulation.removeCell(this);
     }
-  
+
     return null;
   }
 
@@ -5404,16 +5999,16 @@ const easing = this.isPrey ? 0.05 : 0.1;
     ctx.translate(this.x, this.y);
 
     if (this.isPrey) {
-      // Draw circle for prey (unchanged)
+      // prey
       ctx.beginPath();
       ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
       ctx.fillStyle = this.color;
       ctx.fill();
     } else {
-      // Draw sinister star shape for predators
+      // predators
       const outerRadius = this.radius;
       const innerRadius = this.radius * 0.5;
-      
+
       ctx.beginPath();
       ctx.moveTo(0, -outerRadius);
       for (let i = 0; i < this.spikeCount * 2; i++) {
@@ -5426,7 +6021,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
       ctx.fill();
     }
 
-    // Draw eye
+    // eye
     const eyeRadius = this.radius * 0.3;
     const eyeDistance = this.isPrey ? this.radius * 0.3 : this.radius * 0.4;
     const angle = Math.atan2(this.vy, this.vx);
@@ -5438,7 +6033,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
     ctx.fillStyle = "white";
     ctx.fill();
 
-    // Draw pupil
+    // pupil
     const pupilRadius = eyeRadius * 0.6;
     const pupilX = eyeX + Math.cos(angle) * (eyeRadius * 0.3);
     const pupilY = eyeY + Math.sin(angle) * (eyeRadius * 0.3);
@@ -5448,7 +6043,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
     ctx.fillStyle = this.eyeColor;
     ctx.fill();
 
-    // Draw evolution glow if evolved (unchanged)
+    // evolution glow
     if (this.isEvolved) {
       ctx.beginPath();
       ctx.arc(0, 0, this.radius * 1.3, 0, Math.PI * 2);
@@ -5461,7 +6056,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
 
     ctx.restore();
 
-    // Draw user-controlled indicator (unchanged)
+    // user-controlled indicator
     if (this.isUserControlled) {
       ctx.strokeStyle = "blue";
       ctx.lineWidth = 1;
@@ -5470,7 +6065,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
       ctx.stroke();
     }
 
-    // Draw virus aura (unchanged)
+    // virus aura
     if (this.isUserControlled && this.virusAura) {
       const virusAuraRadius = Math.max(this.virusAura.radius, this.radius);
       const gradient = ctx.createRadialGradient(
@@ -5572,7 +6167,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
   eat(prey) {
     let energyGained = 0;
-  
+
     if (this.isPrey) {
       if (prey instanceof Food) {
         energyGained = 40;
@@ -5583,14 +6178,16 @@ const easing = this.isPrey ? 0.05 : 0.1;
       }
     } else {
       if (prey instanceof Cell && prey.isPrey) {
-        energyGained = Math.max(Cell.PREDATOR_ENERGY_GAIN - this.consecutiveKills * 2, 60);
+        energyGained = Math.max(
+          Cell.PREDATOR_ENERGY_GAIN - this.consecutiveKills * 2,
+          60
+        );
         this.energy += energyGained;
         this.energy = Math.min(this.energy, Cell.MAX_ENERGY);
-        this.digesting = Cell.PREDATOR_DIGESTION_TIME;
         this.consecutiveKills++;
         this.evolutionProgress++;
-        this.preyEaten = (this.preyEaten || 0) + 1; 
-  
+        this.preyEaten = (this.preyEaten || 0) + 1;
+
         if (this.simulation && this.simulation.particleSystem) {
           this.simulation.particleSystem.addParticles(
             this.x,
@@ -5602,35 +6199,39 @@ const easing = this.isPrey ? 0.05 : 0.1;
         }
       }
     }
-  
+
     this.energy = Math.min(this.energy, Cell.MAX_ENERGY);
     return energyGained;
   }
   calculateCollisionAvoidance(neighbors) {
     const avoidanceForce = { x: 0, y: 0 };
     const avoidanceRadius = this.radius * 3;
-  
+
     for (const other of neighbors) {
       if (other === this || !this.isSameType(other)) continue;
-  
+
       const dx = this.x - other.x;
       const dy = this.y - other.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
-  
+
       if (distance < avoidanceRadius) {
         const force = (avoidanceRadius - distance) / avoidanceRadius;
         avoidanceForce.x += (dx / distance) * force;
         avoidanceForce.y += (dy / distance) * force;
       }
     }
-  
+
     // Normalize and scale the avoidance force
-    const magnitude = Math.sqrt(avoidanceForce.x * avoidanceForce.x + avoidanceForce.y * avoidanceForce.y);
+    const magnitude = Math.sqrt(
+      avoidanceForce.x * avoidanceForce.x + avoidanceForce.y * avoidanceForce.y
+    );
     if (magnitude > 0) {
-      avoidanceForce.x = (avoidanceForce.x / magnitude) * this.attributes.maxSpeed * 0.5;
-      avoidanceForce.y = (avoidanceForce.y / magnitude) * this.attributes.maxSpeed * 0.5;
+      avoidanceForce.x =
+        (avoidanceForce.x / magnitude) * this.attributes.maxSpeed * 0.5;
+      avoidanceForce.y =
+        (avoidanceForce.y / magnitude) * this.attributes.maxSpeed * 0.5;
     }
-  
+
     return avoidanceForce;
   }
   isSameType(other) {
@@ -5643,18 +6244,25 @@ const easing = this.isPrey ? 0.05 : 0.1;
     if (this instanceof HybridCell && other instanceof HybridCell) return true;
 
     // Handle AdaptiveCells
-    if (this instanceof AdaptiveCell && other instanceof AdaptiveCell) return true;
+    if (this instanceof AdaptiveCell && other instanceof AdaptiveCell)
+      return true;
 
     // Handle regular cells (including offspring)
-    if (!(this instanceof HybridCell) && !(this instanceof AdaptiveCell) &&
-        !(other instanceof HybridCell) && !(other instanceof AdaptiveCell)) {
+    if (
+      !(this instanceof HybridCell) &&
+      !(this instanceof AdaptiveCell) &&
+      !(other instanceof HybridCell) &&
+      !(other instanceof AdaptiveCell)
+    ) {
       return this.isPrey === other.isPrey;
     }
 
     return false;
   }
   reproduce() {
-    const threshold = this.isPrey ? Cell.PREY_REPRODUCTION_THRESHOLD : Cell.PREDATOR_REPRODUCTION_THRESHOLD;
+    const threshold = this.isPrey
+      ? Cell.PREY_REPRODUCTION_THRESHOLD
+      : Cell.PREDATOR_REPRODUCTION_THRESHOLD;
     if (this.energy >= threshold) {
       const offspringCount = Math.min(
         Math.floor(this.attributes.reproductionRate),
@@ -5668,6 +6276,71 @@ const easing = this.isPrey ? 0.05 : 0.1;
     return [];
   }
 
+  //GENES
+  generateGeneCode() {
+    const genes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let code = "";
+    for (let i = 0; i < 10; i++) {
+      code += genes[Math.floor(Math.random() * genes.length)];
+    }
+    return code;
+  }
+
+  applyGeneCode() {
+    const traits = this.interpretGeneCode();
+    this.geneticTraits = {
+      speedModifier: traits.speedModifier,
+      energyEfficiency: traits.energyEfficiency,
+      reproductionBonus: traits.reproductionBonus,
+      visionRange: traits.visionRange,
+    };
+    this.radius *= traits.size; // Adjust cell size based on gene
+  }
+  interpretGeneCode() {
+    const baseValue = 0.5;
+    const variationRange = 0.8;
+
+    return {
+      speedModifier:
+        baseValue +
+        (variationRange *
+          (this.geneCode.charCodeAt(0) + this.geneCode.charCodeAt(1) - 130)) /
+          50,
+      energyEfficiency:
+        baseValue +
+        (variationRange *
+          (this.geneCode.charCodeAt(2) + this.geneCode.charCodeAt(3) - 130)) /
+          50,
+      reproductionBonus:
+        baseValue +
+        (variationRange *
+          (this.geneCode.charCodeAt(4) + this.geneCode.charCodeAt(5) - 130)) /
+          50,
+      visionRange:
+        baseValue +
+        (variationRange *
+          (this.geneCode.charCodeAt(6) + this.geneCode.charCodeAt(7) - 130)) /
+          50,
+      size:
+        baseValue +
+        (variationRange *
+          (this.geneCode.charCodeAt(8) + this.geneCode.charCodeAt(9) - 130)) /
+          50,
+    };
+  }
+
+  mutate() {
+    if (Math.random() < Cell.MUTATION_RATE) {
+      const index = Math.floor(Math.random() * this.geneCode.length);
+      const genes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const newGene = genes[Math.floor(Math.random() * genes.length)];
+      this.geneCode =
+        this.geneCode.substring(0, index) +
+        newGene +
+        this.geneCode.substring(index + 1);
+      this.applyGeneCode();
+    }
+  }
   createOffspring(count) {
     const newCells = [];
     for (let i = 0; i < count; i++) {
@@ -5681,6 +6354,8 @@ const easing = this.isPrey ? 0.05 : 0.1;
         { ...this.geneticTraits },
         this.spikeCount
       );
+      offspring.geneCode = this.geneCode;
+      offspring.mutate();
       offspring.energy = this.isPrey ? 40 : 60;
       offspring.age = 0;
       offspring.baseSizeRadius = offspring.radius;
@@ -5699,9 +6374,12 @@ const easing = this.isPrey ? 0.05 : 0.1;
     });
   }
   addPowerup(powerup) {
-    const existingPowerup = this.powerups.find(p => p.name === powerup.name);
+    const existingPowerup = this.powerups.find((p) => p.name === powerup.name);
     if (existingPowerup) {
-      existingPowerup.level = Math.min(existingPowerup.level + 1, powerup.levels.length - 1);
+      existingPowerup.level = Math.min(
+        existingPowerup.level + 1,
+        powerup.levels.length - 1
+      );
     } else {
       this.powerups.push({ ...powerup, level: 0 });
     }
@@ -5709,131 +6387,140 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
   applyPowerups() {
     if (!this.powerups) return;
-  
-    this.powerups.forEach(powerup => {
-      const currentLevel = powerup.levels && powerup.levels[powerup.level] ? powerup.levels[powerup.level] : {};
-  
+
+    this.powerups.forEach((powerup) => {
+      const currentLevel =
+        powerup.levels && powerup.levels[powerup.level]
+          ? powerup.levels[powerup.level]
+          : {};
+
       switch (powerup.name) {
-        case 'Virus Pull Aura':
+        case "Virus Pull Aura":
           this.virusAura = {
             radius: currentLevel.radius || 50,
-            strength: currentLevel.strength || 0.1
+            strength: currentLevel.strength || 0.1,
           };
           break;
 
-        case 'Speed Boost':
+        case "Speed Boost":
           this.attributes.maxSpeed *= currentLevel.boost || 1.2;
           break;
-          
-        case 'Energy Efficiency':
+
+        case "Energy Efficiency":
           this.attributes.movementCost *= currentLevel.reduction || 0.9;
           break;
 
-        case 'Quantum Tunneling':
-            this.quantumTunneling = {
-              cooldown: currentLevel.cooldown,
-              range: currentLevel.range,
-              timer: 0
-            };
-            break;
+        case "Quantum Tunneling":
+          this.quantumTunneling = {
+            cooldown: currentLevel.cooldown,
+            range: currentLevel.range,
+            timer: 0,
+          };
+          break;
 
-        case 'Viral Replicator':
+        case "Viral Replicator":
           this.viralReplicator = {
             radius: currentLevel.infectionRadius,
             conversionTime: currentLevel.conversionTime,
             maxInfected: currentLevel.maxInfected,
-            infectedCells: []
+            infectedCells: [],
           };
           break;
 
-        case 'Temporal Rift':
+        case "Temporal Rift":
           this.temporalRift = {
             radius: currentLevel.radius,
             duration: currentLevel.duration,
             warpFactor: currentLevel.timeWarpFactor,
             active: false,
-            timer: 0
+            timer: 0,
           };
           break;
 
-          case 'Biome Catalyst':
-            this.biomeCatalyst = {
-              radius: currentLevel.transformRadius,
-              duration: currentLevel.duration,
-              weakenFactor: currentLevel.preyWeakeningFactor,
-              active: false,
-              timer: 0
-            };
-            break;
-
+        case "Biome Catalyst":
+          this.biomeCatalyst = {
+            radius: currentLevel.transformRadius,
+            duration: currentLevel.duration,
+            weakenFactor: currentLevel.preyWeakeningFactor,
+            active: false,
+            timer: 0,
+          };
+          break;
       }
     });
-  
+
     this.virusAura = this.virusAura || null;
   }
-  
+
   addPowerup(powerup) {
-    const existingPowerup = this.powerups.find(p => p.name === powerup.name);
+    const existingPowerup = this.powerups.find((p) => p.name === powerup.name);
     if (existingPowerup) {
-      existingPowerup.level = Math.min((existingPowerup.level || 0) + 1, (powerup.levels ? powerup.levels.length : 1) - 1);
+      existingPowerup.level = Math.min(
+        (existingPowerup.level || 0) + 1,
+        (powerup.levels ? powerup.levels.length : 1) - 1
+      );
     } else {
       this.powerups.push({ ...powerup, level: 0 });
     }
     this.applyPowerups();
-  }applyPowerups() {
+  }
+  applyPowerups() {
     if (!this.powerups) return;
-  
-    this.powerups.forEach(powerup => {
+
+    this.powerups.forEach((powerup) => {
       const currentLevel = powerup.levels[powerup.level];
       switch (powerup.name) {
-        case 'Virus Pull Aura':
+        case "Virus Pull Aura":
           this.virusAura = {
             radius: currentLevel.radius,
-            strength: currentLevel.strength
+            strength: currentLevel.strength,
           };
           break;
-        case 'Egg Spawner':
+        case "Egg Spawner":
           this.eggSpawner = {
             spawnRate: currentLevel.spawnRate,
-            maxEggs: currentLevel.maxEggs
+            maxEggs: currentLevel.maxEggs,
           };
           break;
-        case 'Projectile Shooter':
+        case "Projectile Shooter":
           this.projectileShooter = {
             damage: currentLevel.damage,
             cooldown: currentLevel.cooldown,
             speed: currentLevel.speed,
-            lastShot: 0
+            lastShot: 0,
           };
           break;
-        case 'Speed Boost':
+        case "Speed Boost":
           this.attributes.maxSpeed *= currentLevel.boost;
           break;
-        case 'Energy Efficiency':
+        case "Energy Efficiency":
           this.attributes.movementCost *= currentLevel.reduction;
           break;
-        case 'Rapid Reproduction':
+        case "Rapid Reproduction":
           this.attributes.reproductionRate *= currentLevel.boost;
           break;
-        case 'Enhanced Vision':
+        case "Enhanced Vision":
           // Assume we have a visionRange attribute
           this.attributes.visionRange *= currentLevel.range;
           break;
       }
     });
-  
+
     // Ensure virus aura is properly set even if not selected as a powerup
     if (!this.virusAura) {
       this.virusAura = null;
     }
   }
-  
+
   spawnEgg(deltaTime) {
     if (!this.eggSpawner) return;
 
     this.eggSpawnTimer += deltaTime;
 
-    if (this.eggSpawnTimer >= this.eggSpawnInterval && this.eggs.length < this.eggSpawner.maxEggs) {
+    if (
+      this.eggSpawnTimer >= this.eggSpawnInterval &&
+      this.eggs.length < this.eggSpawner.maxEggs
+    ) {
       const angle = Math.random() * Math.PI * 2;
       const distance = this.radius * 3;
       const egg = {
@@ -5851,7 +6538,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
 
   updateEggs(deltaTime, width, height) {
-    this.eggs = this.eggs.filter(egg => {
+    this.eggs = this.eggs.filter((egg) => {
       egg.hatchTime -= deltaTime;
       if (egg.hatchTime <= 0) {
         // Hatch the egg
@@ -5876,14 +6563,17 @@ const easing = this.isPrey ? 0.05 : 0.1;
     this.projectileShootTimer += deltaTime;
     if (this.projectileShootTimer >= this.projectileShooter.cooldown) {
       if (nearestEnemy) {
-        const angle = Math.atan2(nearestEnemy.y - this.y, nearestEnemy.x - this.x);
+        const angle = Math.atan2(
+          nearestEnemy.y - this.y,
+          nearestEnemy.x - this.x
+        );
         const projectile = {
           x: this.x,
           y: this.y,
           speed: this.projectileShooter.speed,
           damage: this.projectileShooter.damage,
           angle: angle,
-          target: nearestEnemy
+          target: nearestEnemy,
         };
         this.projectiles.push(projectile);
         this.projectileShootTimer = 0;
@@ -5892,7 +6582,7 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
 
   updateProjectiles(deltaTime, width, height, neighbors) {
-    this.projectiles = this.projectiles.filter(projectile => {
+    this.projectiles = this.projectiles.filter((projectile) => {
       // Update projectile position
       projectile.x += Math.cos(projectile.angle) * projectile.speed * deltaTime;
       projectile.y += Math.sin(projectile.angle) * projectile.speed * deltaTime;
@@ -5902,8 +6592,11 @@ const easing = this.isPrey ? 0.05 : 0.1;
       projectile.y = (projectile.y + height) % height;
 
       // Check for collision with enemies
-      const hitEnemy = neighbors.find(cell => 
-        !cell.isPrey && cell !== this && Math.hypot(cell.x - projectile.x, cell.y - projectile.y) < cell.radius
+      const hitEnemy = neighbors.find(
+        (cell) =>
+          !cell.isPrey &&
+          cell !== this &&
+          Math.hypot(cell.x - projectile.x, cell.y - projectile.y) < cell.radius
       );
 
       if (hitEnemy) {
@@ -5912,7 +6605,10 @@ const easing = this.isPrey ? 0.05 : 0.1;
           this.simulation.removeCell(hitEnemy);
         }
         if (this.simulation && this.simulation.particleSystem) {
-          this.simulation.particleSystem.addProjectileHitEffect(projectile.x, projectile.y);
+          this.simulation.particleSystem.addProjectileHitEffect(
+            projectile.x,
+            projectile.y
+          );
         }
         return false;
       }
@@ -5921,8 +6617,6 @@ const easing = this.isPrey ? 0.05 : 0.1;
     });
   }
 
-
-
   battle(opponent) {
     // Prey cells should not battle
     if (this.isPrey) {
@@ -5930,7 +6624,11 @@ const easing = this.isPrey ? 0.05 : 0.1;
     }
 
     // Only predators (non-prey cells) can battle other predators
-    if (!opponent.isPrey && !this.isUserControlled && !opponent.isUserControlled) {
+    if (
+      !opponent.isPrey &&
+      !this.isUserControlled &&
+      !opponent.isUserControlled
+    ) {
       const battleRoll = Math.random();
       const winThreshold = 0.5; // 50% chance of winning
 
@@ -6018,12 +6716,12 @@ const easing = this.isPrey ? 0.05 : 0.1;
     }
     return false; // Defense failed
   }
- 
+
   userControlledEat(prey) {
-    let energyGained = Math.max(Cell.PREDATOR_ENERGY_GAIN - this.consecutiveKills, 25) * 1.5;
+    let energyGained =
+      Math.max(Cell.PREDATOR_ENERGY_GAIN - this.consecutiveKills, 25) * 1.5;
     this.energy += energyGained;
     this.energy = Math.min(this.energy, Cell.MAX_ENERGY);
-    this.digesting = Cell.PREDATOR_DIGESTION_TIME;
     this.consecutiveKills++;
     this.evolutionProgress++;
     this.preyEaten++;
@@ -6043,12 +6741,13 @@ const easing = this.isPrey ? 0.05 : 0.1;
     return this.userControlledReproduce();
   }
 
-
   checkLevelUp() {
     if (this.preyEaten >= this.preyEatenForNextLevel) {
       this.level++;
       this.preyEaten = 0;
-      this.preyEatenForNextLevel = Math.floor(5 * Math.pow(1.5, this.level - 1)); // Exponential increase
+      this.preyEatenForNextLevel = Math.floor(
+        5 * Math.pow(1.5, this.level - 1)
+      ); // Exponential increase
       if (this.simulation) {
         this.simulation.showLevelUpPopup(this);
       }
@@ -6097,19 +6796,18 @@ const easing = this.isPrey ? 0.05 : 0.1;
           this.x,
           this.y,
           this.color,
-          20,
+          10,
           "burst"
         );
       }
     }
   }
- 
 
   highlightCell(ctx) {
     if (this === this.simulation.userControlledCell) {
       const screenX = this.x - this.simulation.cameraX;
       const screenY = this.y - this.simulation.cameraY;
-      
+
       ctx.save();
       ctx.strokeStyle = "blue";
       ctx.lineWidth = 1;
@@ -6258,22 +6956,24 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
   updateSizeBasedOnAge() {
     if (!this.age || !this.baseSizeRadius) return;
-    
+
     const ageFactor = Math.min(this.age / (Cell.MAX_AGE / 10), 1); // Grow 10 times faster
-    const sizeFactor = Cell.MIN_SIZE_FACTOR + (Cell.MAX_SIZE_FACTOR - Cell.MIN_SIZE_FACTOR) * ageFactor;
-    const newRadius = this.baseSizeRadius * sizeFactor * (1 + (this.level - 1) * 0.15);
-    
+    const sizeFactor =
+      Cell.MIN_SIZE_FACTOR +
+      (Cell.MAX_SIZE_FACTOR - Cell.MIN_SIZE_FACTOR) * ageFactor;
+    const newRadius =
+      this.baseSizeRadius * sizeFactor * (1 + (this.level - 1) * 0.15);
+
     if (isFinite(newRadius) && newRadius > 0) {
       const maxChange = this.baseSizeRadius * 2; // Allow up to 50% change per update
       const change = Math.min(Math.abs(newRadius - this.radius), maxChange);
-      this.radius += (newRadius > this.radius) ? change : -change;
+      this.radius += newRadius > this.radius ? change : -change;
     }
   }
   levelUp() {
     this.level++;
     this.yearsSinceLastLevel = 0;
 
-   
     return {
       newLevel: this.level,
       x: this.x,
@@ -6292,7 +6992,13 @@ const easing = this.isPrey ? 0.05 : 0.1;
           this.y = highDensityLocation.y;
           this.quantumTunneling.timer = this.quantumTunneling.cooldown;
           if (this.simulation && this.simulation.particleSystem) {
-            this.simulation.particleSystem.addParticles(this.x, this.y, "rgba(0, 255, 255, 0.7)", 50, "quantumTunnel");
+            this.simulation.particleSystem.addParticles(
+              this.x,
+              this.y,
+              "rgba(0, 255, 255, 0.7)",
+              50,
+              "quantumTunnel"
+            );
           }
         }
       }
@@ -6301,10 +7007,12 @@ const easing = this.isPrey ? 0.05 : 0.1;
 
   findHighDensityLocation(neighbors) {
     const gridSize = 10;
-    const grid = new Array(gridSize).fill(0).map(() => new Array(gridSize).fill(0));
-    
+    const grid = new Array(gridSize)
+      .fill(0)
+      .map(() => new Array(gridSize).fill(0));
+
     // Count prey in each grid cell
-    neighbors.forEach(cell => {
+    neighbors.forEach((cell) => {
       if (cell.isPrey) {
         const gridX = Math.floor(cell.x / (this.simulation.width / gridSize));
         const gridY = Math.floor(cell.y / (this.simulation.height / gridSize));
@@ -6313,65 +7021,79 @@ const easing = this.isPrey ? 0.05 : 0.1;
         }
       }
     });
-    
+
     // Find the cell with the highest prey count within range
     let maxCount = 0;
     let bestLocation = null;
-    
+
     for (let y = 0; y < gridSize; y++) {
       for (let x = 0; x < gridSize; x++) {
         const centerX = (x + 0.5) * (this.simulation.width / gridSize);
         const centerY = (y + 0.5) * (this.simulation.height / gridSize);
         const distance = Math.hypot(centerX - this.x, centerY - this.y);
-        
+
         if (distance <= this.quantumTunneling.range && grid[y][x] > maxCount) {
           maxCount = grid[y][x];
           bestLocation = { x: centerX, y: centerY };
         }
       }
     }
-    
+
     // If no suitable location found, return null
     if (!bestLocation) return null;
-    
+
     // Add some randomness to the exact location within the chosen grid cell
     const cellWidth = this.simulation.width / gridSize;
     const cellHeight = this.simulation.height / gridSize;
     bestLocation.x += (Math.random() - 0.5) * cellWidth;
     bestLocation.y += (Math.random() - 0.5) * cellHeight;
-    
+
     return bestLocation;
   }
 
-
   updateViralReplicator(deltaTime, neighbors) {
     if (this.viralReplicator) {
-      this.viralReplicator.infectedCells = this.viralReplicator.infectedCells.filter(infected => {
-        infected.timer -= deltaTime;
-        if (infected.timer <= 0) {
-          this.convertToPredator(infected.cell);
-          return false;
-        }
-        return true;
-      });
+      this.viralReplicator.infectedCells =
+        this.viralReplicator.infectedCells.filter((infected) => {
+          infected.timer -= deltaTime;
+          if (infected.timer <= 0) {
+            this.convertToPredator(infected.cell);
+            return false;
+          }
+          return true;
+        });
 
-      if (this.viralReplicator.infectedCells.length < this.viralReplicator.maxInfected) {
+      if (
+        this.viralReplicator.infectedCells.length <
+        this.viralReplicator.maxInfected
+      ) {
         this.infectNewCells(neighbors);
       }
     }
   }
 
   infectNewCells(neighbors) {
-    neighbors.forEach(cell => {
-      if (cell.isPrey && 
-          Math.hypot(cell.x - this.x, cell.y - this.y) <= this.viralReplicator.radius &&
-          !this.viralReplicator.infectedCells.some(infected => infected.cell === cell)) {
+    neighbors.forEach((cell) => {
+      if (
+        cell.isPrey &&
+        Math.hypot(cell.x - this.x, cell.y - this.y) <=
+          this.viralReplicator.radius &&
+        !this.viralReplicator.infectedCells.some(
+          (infected) => infected.cell === cell
+        )
+      ) {
         this.viralReplicator.infectedCells.push({
           cell: cell,
-          timer: this.viralReplicator.conversionTime
+          timer: this.viralReplicator.conversionTime,
         });
         if (this.simulation && this.simulation.particleSystem) {
-          this.simulation.particleSystem.addParticles(cell.x, cell.y, "rgba(255, 0, 255, 0.5)", 10, "viralInfection");
+          this.simulation.particleSystem.addParticles(
+            cell.x,
+            cell.y,
+            "rgba(255, 0, 255, 0.5)",
+            10,
+            "viralInfection"
+          );
         }
       }
     });
@@ -6380,12 +7102,12 @@ const easing = this.isPrey ? 0.05 : 0.1;
   convertToPredator(cell) {
     cell.isPrey = false;
     cell.color = this.color;
-    
+
     // Adjust traits for predator behavior
     cell.attributes.maxSpeed *= 1.2; // Increase speed
     cell.attributes.visionRange *= 1.5; // Increase vision range
     cell.attributes.energyEfficiency *= 0.9; // Slightly reduce energy efficiency
-    
+
     // Adjust genetic traits
     cell.geneticTraits.speedModifier *= 1.1;
     cell.geneticTraits.energyEfficiency *= 0.95;
@@ -6393,15 +7115,20 @@ const easing = this.isPrey ? 0.05 : 0.1;
 
     // Reset energy and add predator-specific properties
     cell.energy = Cell.MAX_ENERGY / 2;
-    cell.digesting = 0;
     cell.preyEaten = 0;
-    
+
     // Add predator abilities
     cell.addPredatorAbilities();
 
     // Trigger conversion effect
     if (this.simulation && this.simulation.particleSystem) {
-      this.simulation.particleSystem.addParticles(cell.x, cell.y, "rgba(255, 0, 0, 0.7)", 30, "conversion");
+      this.simulation.particleSystem.addParticles(
+        cell.x,
+        cell.y,
+        "rgba(255, 0, 0, 0.7)",
+        30,
+        "conversion"
+      );
     }
 
     // Update the simulation's cell categorization
@@ -6411,8 +7138,8 @@ const easing = this.isPrey ? 0.05 : 0.1;
   addPredatorAbilities() {
     // Add basic predator powerups
     this.powerups.push({
-      name: 'Virus Pull Aura',
-      level: 0
+      name: "Virus Pull Aura",
+      level: 0,
     });
     this.applyPowerups();
   }
@@ -6423,27 +7150,26 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
 
   removePredatorZone(x, y) {
-    this.predatorZones = this.predatorZones.filter(zone => 
-      zone.x !== x || zone.y !== y
+    this.predatorZones = this.predatorZones.filter(
+      (zone) => zone.x !== x || zone.y !== y
     );
   }
 
   addPredatorFood(x, y) {
-    const food = new Food(x, y, 'predatorFood');
+    const food = new Food(x, y, "predatorFood");
     this.food.push(food);
   }
 
   updateCellCategories(cell) {
     // Remove cell from its old category and add to the new one
     if (cell.isPrey) {
-      this.predators = this.predators.filter(p => p !== cell);
+      this.predators = this.predators.filter((p) => p !== cell);
       this.prey.push(cell);
     } else {
-      this.prey = this.prey.filter(p => p !== cell);
+      this.prey = this.prey.filter((p) => p !== cell);
       this.predators.push(cell);
     }
   }
-
 
   updateTemporalRift(deltaTime, neighbors) {
     if (this.temporalRift) {
@@ -6454,7 +7180,8 @@ const easing = this.isPrey ? 0.05 : 0.1;
         } else {
           this.applyTemporalRift(neighbors, deltaTime);
         }
-      } else if (Math.random() < 0.005) { // Random chance to activate
+      } else if (Math.random() < 0.005) {
+        // Random chance to activate
         this.temporalRift.active = true;
         this.temporalRift.timer = this.temporalRift.duration;
       }
@@ -6462,15 +7189,30 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
 
   applyTemporalRift(neighbors, deltaTime) {
-    neighbors.forEach(cell => {
+    neighbors.forEach((cell) => {
       const distance = Math.hypot(cell.x - this.x, cell.y - this.y);
       if (distance <= this.temporalRift.radius) {
-        const timeFactor = cell.isPrey ? 1 / this.temporalRift.warpFactor : this.temporalRift.warpFactor;
-        cell.update(null, null, this.simulation.width, this.simulation.height, neighbors, deltaTime * timeFactor);
+        const timeFactor = cell.isPrey
+          ? 1 / this.temporalRift.warpFactor
+          : this.temporalRift.warpFactor;
+        cell.update(
+          null,
+          null,
+          this.simulation.width,
+          this.simulation.height,
+          neighbors,
+          deltaTime * timeFactor
+        );
       }
     });
     if (this.simulation && this.simulation.particleSystem) {
-      this.simulation.particleSystem.addParticles(this.x, this.y, "rgba(128, 0, 128, 0.5)", 20, "temporalRift");
+      this.simulation.particleSystem.addParticles(
+        this.x,
+        this.y,
+        "rgba(128, 0, 128, 0.5)",
+        20,
+        "temporalRift"
+      );
     }
   }
 
@@ -6483,7 +7225,8 @@ const easing = this.isPrey ? 0.05 : 0.1;
         } else {
           this.applyBiomeCatalyst(neighbors);
         }
-      } else if (Math.random() < 0.005) { // Random chance to activate
+      } else if (Math.random() < 0.005) {
+        // Random chance to activate
         this.activateBiomeCatalyst();
       }
     }
@@ -6493,10 +7236,20 @@ const easing = this.isPrey ? 0.05 : 0.1;
     this.biomeCatalyst.active = true;
     this.biomeCatalyst.timer = this.biomeCatalyst.duration;
     if (this.simulation && this.simulation.particleSystem) {
-      this.simulation.particleSystem.addParticles(this.x, this.y, "rgba(255, 128, 0, 0.6)", 50, "biomeCatalyst");
+      this.simulation.particleSystem.addParticles(
+        this.x,
+        this.y,
+        "rgba(255, 128, 0, 0.6)",
+        50,
+        "biomeCatalyst"
+      );
     }
     // Create a predator-friendly zone
-    this.simulation.createPredatorZone(this.x, this.y, this.biomeCatalyst.radius);
+    this.simulation.createPredatorZone(
+      this.x,
+      this.y,
+      this.biomeCatalyst.radius
+    );
   }
 
   deactivateBiomeCatalyst() {
@@ -6506,8 +7259,12 @@ const easing = this.isPrey ? 0.05 : 0.1;
   }
 
   applyBiomeCatalyst(neighbors) {
-    neighbors.forEach(cell => {
-      if (cell.isPrey && Math.hypot(cell.x - this.x, cell.y - this.y) <= this.biomeCatalyst.radius) {
+    neighbors.forEach((cell) => {
+      if (
+        cell.isPrey &&
+        Math.hypot(cell.x - this.x, cell.y - this.y) <=
+          this.biomeCatalyst.radius
+      ) {
         cell.applyWeakening(this.biomeCatalyst.weakenFactor);
         // Slow down prey movement
         cell.attributes.maxSpeed *= 0.9;
@@ -6527,27 +7284,32 @@ const easing = this.isPrey ? 0.05 : 0.1;
 
   applyVirusAura(neighbors) {
     if (!this.virusAura) return [];
-  
+
     const affectedCells = [];
     const pullStrength = 50 * this.virusAura.strength;
-  
+
     neighbors.forEach((cell) => {
-      if (cell !== this && (cell.isPrey || cell instanceof HybridCell || cell instanceof AdaptiveCell)) {
+      if (
+        cell !== this &&
+        (cell.isPrey ||
+          cell instanceof HybridCell ||
+          cell instanceof AdaptiveCell)
+      ) {
         const distance = Math.hypot(this.x - cell.x, this.y - cell.y);
         if (distance < this.virusAura.radius) {
-          const effect = (1 - distance / this.virusAura.radius);
+          const effect = 1 - distance / this.virusAura.radius;
           const dx = this.x - cell.x;
           const dy = this.y - cell.y;
           const pullFactor = effect * pullStrength;
-  
+
           cell.vx += (dx / distance) * pullFactor;
           cell.vy += (dy / distance) * pullFactor;
-  
+
           affectedCells.push(cell);
         }
       }
     });
-  
+
     return affectedCells;
   }
   static resetDefaults() {
@@ -6617,15 +7379,15 @@ class Food {
 class HybridCell extends Cell {
   static HYBRID_REPRODUCTION_THRESHOLD = 55;
   static HYBRID_MOVEMENT_COST = 0.0019;
-  static HYBRID_REPRODUCTION_RATE = 1.85;
+  static HYBRID_REPRODUCTION_RATE = 2;
   static HYBRID_MAX_ENERGY = 120;
   static HYBRID_MUTATION_RATE = 0.03;
   static PREDATOR_MODE_ENERGY_DRAIN = 0.01;
-  static HYBRID_SPEED_BOOST = 1.7;
+  static HYBRID_SPEED_BOOST = 1.6;
 
   constructor(x, y, eyeColor = null, attributes = null, geneticTraits = null) {
     super(x, y, "indigo", true, eyeColor, attributes, geneticTraits);
-    this.maxOffspringPerReproduction = 20; 
+    this.maxOffspringPerReproduction = 20;
     this.isPrey = true;
     this.switchCooldown = 0;
     this.adaptability = 0.05;
@@ -6764,7 +7526,7 @@ class HybridCell extends Cell {
         this.x,
         this.y,
         this.color,
-        30,
+        10,
         "burst"
       );
     }
@@ -6810,8 +7572,8 @@ class HybridCell extends Cell {
 }
 
 class AdaptiveCell extends Cell {
-  static ADAPTIVE_REPRODUCTION_THRESHOLD = 70;
-  static ADAPTIVE_MOVEMENT_COST = 0.019;
+  static ADAPTIVE_REPRODUCTION_THRESHOLD = 75;
+  static ADAPTIVE_MOVEMENT_COST = 0.015;
   static ADAPTIVE_REPRODUCTION_RATE = 1.34;
   static ADAPTIVE_MAX_ENERGY = 100;
   static ADAPTIVE_MUTATION_RATE = 0.03;
@@ -7221,7 +7983,9 @@ class AdaptiveCell extends Cell {
     ctx.closePath();
     ctx.fillStyle = this.camouflageActive
       ? this.generateRandomColor()
-      : `rgb(0, ${Math.floor(255 * (1 - this.mode))}, ${Math.floor(255 * (1 - this.mode))})`;
+      : `rgb(0, ${Math.floor(255 * (1 - this.mode))}, ${Math.floor(
+          255 * (1 - this.mode)
+        )})`;
     ctx.fill();
 
     // Draw eye
@@ -7263,7 +8027,7 @@ class AdaptiveCell extends Cell {
     if (this.evading) {
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
-     
+
       ctx.strokeStyle = "rgba(255, 255, 0, 0.6)";
       ctx.stroke();
     }
@@ -7312,7 +8076,7 @@ class AdaptiveCell extends Cell {
           this.x,
           this.y,
           this.color,
-          30,
+          10,
           "burst"
         );
       }
@@ -7386,7 +8150,6 @@ class Particle {
       this.speedX = (Math.random() - 0.5) * 3;
       this.speedY = (Math.random() - 0.5) * 3;
     }
-  
 
     if (this.type === "cellDeath") {
       this.lifetime = 40;
@@ -7481,7 +8244,7 @@ class Particle {
 }
 
 class ParticleSystem {
-  constructor(maxParticles = 1000) {
+  constructor(maxParticles = 250) {
     this.particles = [];
     this.maxParticles = maxParticles;
   }
@@ -7505,7 +8268,9 @@ class ParticleSystem {
   addEggSpawnEffect(x, y) {
     const particleCount = 10;
     for (let i = 0; i < particleCount; i++) {
-      this.particles.push(new Particle(x, y, 'rgba(255, 255, 255, 0.7)', 'eggSpawn'));
+      this.particles.push(
+        new Particle(x, y, "rgba(255, 255, 255, 0.7)", "eggSpawn")
+      );
     }
   }
   addPullEffect(x, y, radius) {
@@ -7513,12 +8278,14 @@ class ParticleSystem {
     for (let i = 0; i < particleCount; i++) {
       const angle = (i / particleCount) * Math.PI * 2;
       const distance = Math.random() * radius;
-      this.particles.push(new Particle(
-        x + Math.cos(angle) * distance,
-        y + Math.sin(angle) * distance,
-        'rgba(0, 255, 0, 0.5)',
-        'pullEffect'
-      ));
+      this.particles.push(
+        new Particle(
+          x + Math.cos(angle) * distance,
+          y + Math.sin(angle) * distance,
+          "rgba(0, 255, 0, 0.5)",
+          "pullEffect"
+        )
+      );
     }
   }
 
@@ -7527,14 +8294,16 @@ class ParticleSystem {
     for (let i = 0; i < particleCount; i++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = Math.random() * 50 + 50;
-      this.particles.push(new Particle(
-        x,
-        y,
-        'yellow',
-        'projectileHit',
-        Math.cos(angle) * speed,
-        Math.sin(angle) * speed
-      ));
+      this.particles.push(
+        new Particle(
+          x,
+          y,
+          "yellow",
+          "projectileHit",
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed
+        )
+      );
     }
   }
 
