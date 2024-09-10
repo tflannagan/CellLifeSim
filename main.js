@@ -1277,17 +1277,17 @@ margin: 0.2rem 0rem !important;
 
     this.followedCell = null;
 
-    // Set up large map dimensions
+    //map dimensions
     this.mapWidth = 6000;
     this.mapHeight = 4000;
 
-    // Set up viewport dimensions
+    //viewport dimensions
     this.viewportWidth = window.innerWidth;
     this.viewportHeight = window.innerHeight;
     this.canvas.width = this.viewportWidth;
     this.canvas.height = this.viewportHeight;
 
-    // Set up camera position
+    //camera position
     this.cameraX = 0;
     this.cameraY = 0;
 
@@ -1720,7 +1720,6 @@ margin: 0.2rem 0rem !important;
       debugToggle.addEventListener("click", () => this.toggleDebugMenu());
     }
 
-    // Add event listener for the settings toggle (functionality to be implemented later)
     const settingsToggle = this.shadowRoot.getElementById("toggle-settings");
     if (settingsToggle) {
       settingsToggle.addEventListener("click", () => {
@@ -1909,26 +1908,23 @@ margin: 0.2rem 0rem !important;
       }
     }
 
-    // Restore the canvas state
     this.ctx.restore();
 
-    // Update graph and dashboard less frequently
     if (this.frameCount % 10 === 0) {
       this.updateGraph();
       this.updateEyeColorStats();
       this.updateDashboard();
     }
 
-    // Update user dashboard
     this.updateUserDashboard();
 
-    // Check for win/lose conditions
+    // win/lose conditions
     if (this.checkEndgame()) {
       this.isRunning = false;
       return;
     }
 
-    // Update FPS counter
+    // FPS counter
     if (this.showFPS) {
       this.fpsCounter.textContent = `FPS: ${this.fps}`;
     }
@@ -2509,8 +2505,7 @@ margin: 0.2rem 0rem !important;
       }
     }
 
-    // Update energy (reduced energy drop rate for user-controlled cell)
-    const baseCost = cell.attributes.movementCost * 0.7 * deltaTime; // Reduced by 30%
+    const baseCost = cell.attributes.movementCost * 0.7 * deltaTime;
     const movementCost =
       Math.hypot(cell.vx, cell.vy) / cell.attributes.maxSpeed;
     const energyConsumption = baseCost * (1 + movementCost);
@@ -2525,7 +2520,7 @@ margin: 0.2rem 0rem !important;
       cell.level++;
       cell.preyEaten = 0;
       this.showLevelUpPopup(cell);
-      return; // Exit the method early as we've paused the game
+      return;
     }
 
     // Update age
@@ -2825,34 +2820,7 @@ margin: 0.2rem 0rem !important;
     );
     this.selectNewPredatorCell();
   }
-  // showGameOverPopup() {
-  //   const popup = document.createElement("div");
-  //   popup.id = "game-over-popup";
-  //   popup.innerHTML = `
-  //     <h2>Game Over</h2>
-  //     <p>You have run out of cells to control!</p>
-  //     <button id="restart-game-btn">Restart Game</button>
-  //   `;
-  //   popup.style.cssText = `
-  //     position: fixed;
-  //     top: 50%;
-  //     left: 50%;
-  //     transform: translate(-50%, -50%);
-  //     background-color: rgba(0, 0, 0, 0.8);
-  //     color: white;
-  //     padding: 20px;
-  //     border-radius: 10px;
-  //     text-align: center;
-  //     z-index: 1000;
-  //   `;
-  //   this.shadowRoot.appendChild(popup);
 
-  //   const restartButton = popup.querySelector("#restart-game-btn");
-  //   restartButton.addEventListener("click", () => {
-  //     this.restartSimulation("user-controlled");
-  //     popup.remove();
-  //   });
-  // }
   addUserOffspring(offspring) {
     offspring.forEach((cell) => {
       cell.isUserOffspring = true;
@@ -2873,7 +2841,6 @@ margin: 0.2rem 0rem !important;
       this.cells.splice(index, 1);
     }
 
-    // If it's a user-controlled cell or offspring, handle accordingly
     if (cell === this.userControlledCell) {
       this.selectNewPredatorCell();
     }
@@ -3097,7 +3064,7 @@ margin: 0.2rem 0rem !important;
   setupGraph() {
     this.graphCanvas.width = 350;
     this.graphCanvas.height = 180;
-    this.fullHistoryGraphCanvas.width = 650; // Increased width
+    this.fullHistoryGraphCanvas.width = 650;
     this.fullHistoryGraphCanvas.height = 350;
     this.updateGraph();
   }
@@ -3813,8 +3780,7 @@ margin: 0.2rem 0rem !important;
       const currentValue = CellConfig.get(paramName);
 
       if (currentValue === undefined) {
-        console.warn(`Parameter ${paramName} is undefined in CellConfig.`);
-        return; // Skip this iteration
+        return;
       }
 
       try {
@@ -4257,7 +4223,7 @@ margin: 0.2rem 0rem !important;
     // Create a new canvas element
     const canvas = document.createElement("canvas");
     canvas.width = 600;
-    canvas.height = 320; // Slightly increased height to accommodate the time text
+    canvas.height = 320;
     const ctx = canvas.getContext("2d");
 
     // Draw the graph on the new canvas
@@ -5591,7 +5557,7 @@ const CellConfig = {
     } else if (this.defaults.hasOwnProperty(key)) {
       return this.defaults[key];
     } else {
-      return 0; // or some default value
+      return 0;
     }
   },
 
@@ -6160,9 +6126,9 @@ class Cell {
   initializeGeneticTraits() {
     const [r, g, b] = this.eyeColor.match(/\d+/g).map(Number);
     return {
-      speedModifier: 0.9 + (r / 255) * 0.2, // 0.9 to 1.1
-      energyEfficiency: 0.9 + (g / 255) * 0.2, // 0.9 to 1.1
-      reproductionBonus: 0.9 + (b / 255) * 0.2, // 0.9 to 1.1
+      speedModifier: 0.9 + (r / 255) * 0.2,
+      energyEfficiency: 0.9 + (g / 255) * 0.2,
+      reproductionBonus: 0.9 + (b / 255) * 0.2,
     };
   }
   eat(prey) {
@@ -7102,13 +7068,10 @@ class Cell {
   convertToPredator(cell) {
     cell.isPrey = false;
     cell.color = this.color;
+    cell.attributes.maxSpeed *= 1.2;
+    cell.attributes.visionRange *= 1.5;
+    cell.attributes.energyEfficiency *= 0.9;
 
-    // Adjust traits for predator behavior
-    cell.attributes.maxSpeed *= 1.2; // Increase speed
-    cell.attributes.visionRange *= 1.5; // Increase vision range
-    cell.attributes.energyEfficiency *= 0.9; // Slightly reduce energy efficiency
-
-    // Adjust genetic traits
     cell.geneticTraits.speedModifier *= 1.1;
     cell.geneticTraits.energyEfficiency *= 0.95;
     cell.geneticTraits.reproductionBonus *= 0.9;
@@ -7120,7 +7083,6 @@ class Cell {
     // Add predator abilities
     cell.addPredatorAbilities();
 
-    // Trigger conversion effect
     if (this.simulation && this.simulation.particleSystem) {
       this.simulation.particleSystem.addParticles(
         cell.x,
@@ -7131,12 +7093,10 @@ class Cell {
       );
     }
 
-    // Update the simulation's cell categorization
     this.simulation.updateCellCategories(cell);
   }
 
   addPredatorAbilities() {
-    // Add basic predator powerups
     this.powerups.push({
       name: "Virus Pull Aura",
       level: 0,
@@ -7146,7 +7106,6 @@ class Cell {
 
   createPredatorZone(x, y, radius) {
     this.predatorZones.push({ x, y, radius });
-    // You might want to add visual representation of this zone
   }
 
   removePredatorZone(x, y) {
@@ -7323,7 +7282,7 @@ class Food {
     this.y = y;
     this.radius = 1.2;
     this.color = this.generateFoodColor();
-    this.opacity = 0; // Start with 0 opacity
+    this.opacity = 0;
     this.targetOpacity = Math.random() * 0.3 + 0.3;
     this.glowRadius = this.radius * 2;
     this.glowOpacity = 0;
@@ -7961,7 +7920,7 @@ class AdaptiveCell extends Cell {
   }
 
   draw(ctx) {
-    const hexagonRadius = this.radius * 1.1; // Slightly larger to compensate for the hexagon shape
+    const hexagonRadius = this.radius * 1.1;
     const hexagonAngle = Math.PI / 3;
 
     ctx.save();
@@ -8114,7 +8073,7 @@ class Particle {
 
     if (this.type === "packFormation") {
       this.lifetime = 30;
-      this.size = 3; // Increased size
+      this.size = 3;
       this.speedX = (Math.random() - 0.5) * 0.5;
       this.speedY = (Math.random() - 0.5) * 0.5;
     }
