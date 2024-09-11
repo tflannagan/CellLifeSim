@@ -1116,7 +1116,7 @@ margin: 0.2rem 0rem !important;
       <canvas></canvas>
       <button id="toggle-gui"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></button>
       <div id="gui-container">
-        <h2>Cell Life Simulation</h2>
+        <h2>BioRealm</h2>
         <button class="gui-button"><a href="https://github.com/tflannagan" target="_blank" class="gui-link">GitHub</a></button>
         <button class="gui-button"><a href="https://www.tyflannagan.tech/" target="_blank" class="gui-link">Creator's Page</a></button>
         <button id="toggle-settings" class="gui-button">Settings</button>
@@ -4371,7 +4371,7 @@ margin: 0.2rem 0rem !important;
     ctx.fillStyle = "white";
     ctx.font = "bold 16px Arial";
     ctx.textAlign = "center";
-    ctx.fillText("Cell Life Simulation - Full History Graph", width / 2, 20);
+    ctx.fillText("BioRealm - Full History Graph", width / 2, 20);
 
     // Add total simulation time at the bottom
     const totalSimulationTime = this.formatTime(Date.now() - this.startTime);
@@ -4650,7 +4650,7 @@ margin: 0.2rem 0rem !important;
           box-shadow: 0 6px 8px rgba(43, 107, 255, 0.15);
         }
       </style>
-      <h2>Cell Life Simulation</h2>
+      <h2>BioRealm</h2>
       <p>Explore a dynamic ecosystem where cells interact, evolve, and compete.</p>
       <div class="feature-list">
         <div class="feature-item">
