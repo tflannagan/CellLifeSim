@@ -2081,45 +2081,120 @@ margin: 0.2rem 0rem !important;
 
   //SIMULATION MODE
   setupNavigationControls() {
-    // Add keyboard controls for simulation mode
-    window.addEventListener("keydown", (e) => {
-      if (this.gameMode !== "simulation-only" || this.followedCell) return;
-      const speed = 40;
-      switch (e.key) {
-        case "w":
-          this.cameraY = Math.max(0, this.cameraY - speed);
-          break;
-        case "s":
-          this.cameraY = Math.min(
-            this.mapHeight - this.viewportHeight,
-            this.cameraY + speed
-          );
-          break;
-        case "a":
-          this.cameraX = Math.max(0, this.cameraX - speed);
-          break;
-        case "d":
-          this.cameraX = Math.min(
-            this.mapWidth - this.viewportWidth,
-            this.cameraX + speed
-          );
-          break;
-      }
-    });
+  let isDragging = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+  const edgeScrollThreshold = 50;
+  const edgeScrollSpeed = 15;
+  const dragSpeed = 1;
 
-    // Add minimap click navigation
-    this.minimapCanvas.addEventListener("click", (e) => {
-      const rect = this.minimapCanvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      this.cameraX =
-        (x / this.minimapCanvas.width) * this.mapWidth - this.viewportWidth / 2;
-      this.cameraY =
-        (y / this.minimapCanvas.height) * this.mapHeight -
-        this.viewportHeight / 2;
-      this.clampCamera();
-    });
-  }
+  this.canvas.addEventListener('mousedown', (e) => {
+    if (e.button === 1) {
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      this.canvas.style.cursor = 'grabbing';
+      e.preventDefault();
+    }
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    if (e.button === 1) {
+      isDragging = false;
+      this.canvas.style.cursor = 'default';
+    }
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (isDragging) {
+      const deltaX = e.clientX - lastMouseX;
+      const deltaY = e.clientY - lastMouseY;
+      
+      this.cameraX = Math.max(0, Math.min(
+        this.cameraX - deltaX * dragSpeed,
+        this.mapWidth - this.viewportWidth
+      ));
+      this.cameraY = Math.max(0, Math.min(
+        this.cameraY - deltaY * dragSpeed,
+        this.mapHeight - this.viewportHeight
+      ));
+
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    }
+  });
+
+  this.canvas.addEventListener('contextmenu', (e) => {
+    if (isDragging) {
+      e.preventDefault();
+    }
+  });
+
+  const edgeScroll = () => {
+    if (!isDragging && this.gameMode === 'simulation-only' && !this.followedCell) {
+      let scrollX = 0;
+      let scrollY = 0;
+
+      if (mouseX < edgeScrollThreshold) {
+        scrollX = -edgeScrollSpeed * (1 - mouseX / edgeScrollThreshold);
+      } else if (mouseX > this.viewportWidth - edgeScrollThreshold) {
+        scrollX = edgeScrollSpeed * (1 - (this.viewportWidth - mouseX) / edgeScrollThreshold);
+      }
+
+      if (mouseY < edgeScrollThreshold) {
+        scrollY = -edgeScrollSpeed * (1 - mouseY / edgeScrollThreshold);
+      } else if (mouseY > this.viewportHeight - edgeScrollThreshold) {
+        scrollY = edgeScrollSpeed * (1 - (this.viewportHeight - mouseY) / edgeScrollThreshold);
+      }
+
+      if (scrollX !== 0 || scrollY !== 0) {
+        this.cameraX = Math.max(0, Math.min(
+          this.cameraX + scrollX,
+          this.mapWidth - this.viewportWidth
+        ));
+        this.cameraY = Math.max(0, Math.min(
+          this.cameraY + scrollY,
+          this.mapHeight - this.viewportHeight
+        ));
+      }
+    }
+  };
+
+  setInterval(edgeScroll, 16);
+
+  window.addEventListener('keydown', (e) => {
+    if (this.gameMode !== 'simulation-only' || this.followedCell) return;
+    const speed = 40;
+    switch (e.key) {
+      case 'w':
+        this.cameraY = Math.max(0, this.cameraY - speed);
+        break;
+      case 's':
+        this.cameraY = Math.min(this.mapHeight - this.viewportHeight, this.cameraY + speed);
+        break;
+      case 'a':
+        this.cameraX = Math.max(0, this.cameraX - speed);
+        break;
+      case 'd':
+        this.cameraX = Math.min(this.mapWidth - this.viewportWidth, this.cameraX + speed);
+        break;
+    }
+  });
+
+  this.minimapCanvas.addEventListener('click', (e) => {
+    const rect = this.minimapCanvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.cameraX = (x / this.minimapCanvas.width) * this.mapWidth - this.viewportWidth / 2;
+    this.cameraY = (y / this.minimapCanvas.height) * this.mapHeight - this.viewportHeight / 2;
+    this.clampCamera();
+  });
+}
   isInViewport(entity) {
     const buffer = 50; // Buffer zone around the viewport
     const screenX = entity.x - this.cameraX;
